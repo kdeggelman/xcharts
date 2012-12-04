@@ -1,0 +1,44 @@
+{
+  "name": "xcharts",
+  "version": "0.1.0",
+  "description": "A D3-based library for building custom charts and graphs.",
+  "main": "build/xcharts.js",
+  "homepage": "http://tenxer.github.com/xCharts/",
+  "scripts": {
+    "test": "make lint && make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tenxer/xCharts.git"
+  },
+  "bugs": "https://github.com/tenxer/xCharts/issues",
+  "keywords": [
+    "chart",
+    "d3.js",
+    "d3",
+    "svg",
+    "tenXer"
+  ],
+  "author": {
+    "name": "tenXer",
+    "url": "http://www.tenxer.com"
+  },
+  "contributors": [
+    "Paul Armstrong <paul@paularmstrongdesigns.com>"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "underscore": "~1.4.3",
+    "less": "~1.3.1",
+    "uglify-js": "~2.2.1",
+    "nodelint": "~0.6",
+    "mocha": "~1.6",
+    "expect.js": "~0.1",
+    "d3": "~2.10.1",
+    "mocha-phantomjs": "~1.0"
+  },
+  "scripts": {
+    "test": "make lint && make test",
+    "prepublish": "make && make clean && make build"
+  }
+}

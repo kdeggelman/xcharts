@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>xChart Tests</title>
+
+  <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
+  <style>
+  #scratch {
+    position: absolute;
+    left: -999em;
+  }
+  .tooltip { display: none; }
+  </style>
+  <script src="lib/jquery-1.7.2.min.js"></script>
+  <script src="../node_modules/expect.js/expect.js"></script>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script>
+    mocha.ui('bdd');
+    mocha.reporter('html');
+    // JSLint will catch global leaks
+    // D3.js is leaking __onresize, like a jerk
+    mocha.ignoreLeaks();
+  </script>
+
+  <script src="../node_modules/d3/d3.v2.min.js"></script>
+  <script src="../node_modules/lodash/lodash.underscore.min.js"></script>
+  <script src="../build/xcharts.js"></script>
+  <script src="chart.test.js"></script>
+  <script src="scales.test.js"></script>
+  <script src="visutils.test.js"></script>
+  <script src="vis/bar.test.js"></script>
+  <script src="vis/cumulative.test.js"></script>
+  <script src="vis/line.test.js"></script>
+</head>
+<body>
+
+  <div id="scratch">
+    <div id="container"></div>
+  </div>
+  <div id="mocha"></div>
+
+  <script>
+  mocha.setup('bdd');
+  if (window.mochaPhantomJS) {
+    mochaPhantomJS.run();
+  } else {
+    mocha.run();
+  }
+  </script>
+
+</body>
+</html>
