@@ -1,0 +1,7 @@
+<p>In bar charts, we need to create a second scale that will inform us how wide each bar series should be, and where they should be placed. For this, we use <code>postUpdateScale</code> to calculate a second ordinal scale, with reference to the first:</p>
+
+<pre><code data-language="javascript">function postUpdateScale(self, scaleData, mainData, compData) {
+  self.xScale2 = d3.scale.ordinal()
+    .domain(d3.range(0, mainData.length))
+    .rangeRoundBands([0, self.xScale.rangeBand()], 0.08);
+}</code></pre>

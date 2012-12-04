@@ -1,0 +1,7 @@
+<p>Since we'll be removing everything here, we'll transition the opacity to zero and then remove the elements:</p>
+
+<pre><code data-language="javascript">function destroy(self, storage, timing) {
+  storage.lineContainers.transition().duration(timing)
+    .style('opacity', 0)
+    .remove();
+}</code></pre>

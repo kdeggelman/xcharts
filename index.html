@@ -1,0 +1,128 @@
+
+ 
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <!--[if IE]>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <![endif]-->
+  <title>xCharts</title>
+  
+ 
+
+ 
+
+<link rel="stylesheet" href="/xcharts/css/master.css">
+
+
+
+ 
+<script src="/xcharts/js/d3.v2.min.js"></script>
+<script src="/xcharts/js/zepto.min.js"></script>
+<script src="/xcharts/js/xcharts.min.js"></script>
+<script src="/xcharts/js/rainbow.min.js"></script>
+
+</head>
+<body class="">
+
+  
+
+<header class="mainHeader">
+  <hgroup class="logo">
+    <h1 class="xChartLogo"><a href="/xcharts/">xCharts</a></h1>
+    <h2 class="tenxerLogo"><a href="https://www.tenxer.com"><img src="/xcharts/images/logo.png" alt="Open Source Charts by tenXer"></a></h2>
+    <h3>a D3-based library for building custom charts and graphs</h3>
+  </hgroup>
+
+  <nav>
+    <ul>
+      <li class="current">
+        <a href="/xcharts/">download</a>
+      </li>
+      <li>
+        <a href="/xcharts/examples/">examples</a>
+      </li>
+      <li>
+        <a href="/xcharts/docs/">documentation</a>
+      </li>
+      <li><a target="_blank" href="#">source</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+
+<div class="row guttered">
+  <div class="span9">
+    <p>xCharts is a JavaScript library for building beautiful and custom data-driven chart visualizations for the web using <a target="_blank" href="http://d3js.org">D3.js</a>. Using HTML, CSS, and SVG, xCharts are designed to be dynamic, fluid, and open to integrations and customization.</p>
+  </div>
+  <ul class="span3 multi">
+    <li><button class="toggled" data-type="line-dotted">Line</button></li>
+    <li><button data-type="cumulative">Cumulative</button></li>
+    <li><button data-type="bar">Bar</button></li>
+  </ul>
+</div>
+<figure class="demo" id="chart"></figure>
+
+<ul class="row guttered opts">
+  <li class="span4"><a href="/xcharts/examples/">Examples</a></li>
+  <li class="span4 download"><a target="_blank" href="/xcharts/xcharts-build.tar.gz" class="btn cta">Download xCharts.js</a></li>
+  <li class="span4"><a href="/xcharts/docs/">Documenation</a></li>
+</ul>
+
+<script>
+(function () {
+var data = [{"xScale":"ordinal","comp":[],"main":[{"className":".main.l1","data":[{"y":15,"x":"2012-11-19T00:00:00"},{"y":11,"x":"2012-11-20T00:00:00"},{"y":8,"x":"2012-11-21T00:00:00"},{"y":10,"x":"2012-11-22T00:00:00"},{"y":1,"x":"2012-11-23T00:00:00"},{"y":6,"x":"2012-11-24T00:00:00"},{"y":8,"x":"2012-11-25T00:00:00"}]},{"className":".main.l2","data":[{"y":29,"x":"2012-11-19T00:00:00"},{"y":33,"x":"2012-11-20T00:00:00"},{"y":13,"x":"2012-11-21T00:00:00"},{"y":16,"x":"2012-11-22T00:00:00"},{"y":7,"x":"2012-11-23T00:00:00"},{"y":18,"x":"2012-11-24T00:00:00"},{"y":8,"x":"2012-11-25T00:00:00"}]}],"type":"line-dotted","yScale":"linear"},{"xScale":"ordinal","comp":[],"main":[{"className":".main.l1","data":[{"y":12,"x":"2012-11-19T00:00:00"},{"y":18,"x":"2012-11-20T00:00:00"},{"y":8,"x":"2012-11-21T00:00:00"},{"y":7,"x":"2012-11-22T00:00:00"},{"y":6,"x":"2012-11-23T00:00:00"},{"y":12,"x":"2012-11-24T00:00:00"},{"y":8,"x":"2012-11-25T00:00:00"}]},{"className":".main.l2","data":[{"y":29,"x":"2012-11-19T00:00:00"},{"y":33,"x":"2012-11-20T00:00:00"},{"y":13,"x":"2012-11-21T00:00:00"},{"y":16,"x":"2012-11-22T00:00:00"},{"y":7,"x":"2012-11-23T00:00:00"},{"y":18,"x":"2012-11-24T00:00:00"},{"y":8,"x":"2012-11-25T00:00:00"}]}],"type":"cumulative","yScale":"linear"},{"xScale":"ordinal","comp":[],"main":[{"className":".main.l1","data":[{"y":12,"x":"2012-11-19T00:00:00"},{"y":18,"x":"2012-11-20T00:00:00"},{"y":8,"x":"2012-11-21T00:00:00"},{"y":7,"x":"2012-11-22T00:00:00"},{"y":6,"x":"2012-11-23T00:00:00"},{"y":12,"x":"2012-11-24T00:00:00"},{"y":8,"x":"2012-11-25T00:00:00"}]},{"className":".main.l2","data":[{"y":29,"x":"2012-11-19T00:00:00"},{"y":33,"x":"2012-11-20T00:00:00"},{"y":13,"x":"2012-11-21T00:00:00"},{"y":16,"x":"2012-11-22T00:00:00"},{"y":7,"x":"2012-11-23T00:00:00"},{"y":18,"x":"2012-11-24T00:00:00"},{"y":8,"x":"2012-11-25T00:00:00"}]}],"type":"bar","yScale":"linear"}];
+var order = [0, 1, 0, 2],
+  i = 0,
+  xFormat = d3.time.format('%A'),
+  chart = new xChart('line-dotted', data[order[i]], '#chart', {
+    axisPaddingTop: 5,
+    dataFormatX: function (x) {
+      return new Date(x);
+    },
+    tickFormatX: function (x) {
+      return xFormat(x);
+    },
+    timing: 1250
+  }),
+  rotateTimer,
+  toggles = d3.selectAll('.multi button'),
+  t = 3500;
+
+function updateChart(i) {
+  var d = data[i];
+  chart.setData(d);
+  toggles.classed('toggled', function () {
+    return (d3.select(this).attr('data-type') === d.type);
+  });
+  return d;
+}
+
+toggles.on('click', function (d, i) {
+  clearTimeout(rotateTimer);
+  updateChart(i);
+});
+
+function rotateChart() {
+  i += 1;
+  i = (i >= order.length) ? 0 : i;
+  var d = updateChart(order[i]);
+  rotateTimer = setTimeout(rotateChart, t);
+}
+rotateTimer = setTimeout(rotateChart, t);
+}());
+</script>
+
+
+
+<footer>
+  <p>Copyright &copy;2012 <a href="https://www.tenxer.com">tenXer, Inc.</a></p>
+</footer>
+
+
+ 
+</body>
+</html>

@@ -1,0 +1,8 @@
+<p>In cumulative charts, before we create the scale, we need to actually convert our raw data into cumulative data.</p>
+
+<div class="note"><p>This example is very barebones and for demonstration only. The actual process used by the <code>cumulative</code> vis type is much more involved and handles actually setting values and remembering original states.</p></div>
+
+<pre><code data-language="javascript">function preUpdateScale(self, data, mainData, compData) {
+  mainData = accumulateData(mainData);
+  compData = accumulateData(compData);
+}</code></pre>

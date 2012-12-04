@@ -1,0 +1,1356 @@
+
+ 
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <!--[if IE]>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <![endif]-->
+  <title>xCharts » Documentation</title>
+  
+ 
+
+ 
+
+<link rel="stylesheet" href="/xcharts/css/master.css">
+
+
+
+ 
+<script src="/xcharts/js/d3.v2.min.js"></script>
+<script src="/xcharts/js/zepto.min.js"></script>
+<script src="/xcharts/js/xcharts.min.js"></script>
+<script src="/xcharts/js/rainbow.min.js"></script>
+
+</head>
+<body class="">
+
+  
+
+<header class="mainHeader">
+  <hgroup class="logo">
+    <h1 class="xChartLogo"><a href="/xcharts/">xCharts</a></h1>
+    <h2 class="tenxerLogo"><a href="https://www.tenxer.com"><img src="/xcharts/images/logo.png" alt="Open Source Charts by tenXer"></a></h2>
+    <h3>a D3-based library for building custom charts and graphs</h3>
+  </hgroup>
+
+  <nav>
+    <ul>
+      <li>
+        <a href="/xcharts/">download</a>
+      </li>
+      <li>
+        <a href="/xcharts/examples/">examples</a>
+      </li>
+      <li class="current">
+        <a href="/xcharts/docs/">documentation</a>
+      </li>
+      <li><a target="_blank" href="#">source</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+<section class="row guttered">
+  <div class="span9">
+    <h1>Documentation</h1>
+
+    <article id="quickstart" class="doc">
+      <h1>Quick Start</h1>
+
+      <ol>
+        <li>Download and include <a target="_blank" href="http://d3js.org">D3.js</a> on your page.</li>
+        <li><a href="/xcharts/xcharts-build.tar.gz">Download</a> and include <code>xcharts.js</code> and <code>xcharts.css</code> on your page.</li>
+        <li>Configure your data using xChart's <a href="#data">Data Format</a>.</li>
+        <li>
+          Add an element to your page to display your chart:
+          <pre><code data-language="html">&lt;figure id="myChart"&gt;&lt;/figure&gt;</code></pre>
+        </li>
+        <li>
+          Create your chart:
+          <pre><code data-language="javascript">var myChart = new xChart('bar', data, '#myChart');</code></pre>
+        </li>
+      </ol>
+
+
+    </article>
+
+    <article id="data" class="doc clearfix">
+      <h1>Data Format</h1>
+
+      <section class="row guttered">
+        <div class="span6">
+          <p>xCharts uses its input data to instruct it on how the dataset should be  drawn. By providing the following data, an xChart will be instructed to  draw an  ordinal bar chart with a linear scale, containing two ordinal ticks on the x-axis for "Pepperoni" and "Cheese". There will also be a secondary dotted-line component overlayed on top of the bars.</p>
+
+          <figure style="height: 300px" id="pizza"></figure>
+          <script>new xChart('bar', {"xScale":"ordinal","yScale":"linear","type":"bar","main":[{"className":".pizza","data":[{"x":"Pepperoni","y":12},{"x":"Cheese","y":8}]}],"comp":[{"className":".pizza","type":"line-dotted","data":[{"x":"Pepperoni","y":10},{"x":"Cheese","y":4}]}]}, '#pizza');</script>
+        </div>
+        <div class="span6">
+          <h2>Example Data</h2>
+          <pre><code data-language="javascript">{
+  &quot;xScale&quot;: &quot;ordinal&quot;,
+  &quot;yScale&quot;: &quot;linear&quot;,
+  &quot;type&quot;: &quot;bar&quot;,
+  &quot;main&quot;: [
+    {
+      &quot;className&quot;: &quot;.pizza&quot;,
+      &quot;data&quot;: [
+        {
+          &quot;x&quot;: &quot;Pepperoni&quot;,
+          &quot;y&quot;: 12
+        },
+        {
+          &quot;x&quot;: &quot;Cheese&quot;,
+          &quot;y&quot;: 8
+        }
+      ]
+    }
+  ],
+  &quot;comp&quot;: [
+    {
+      &quot;className&quot;: &quot;.pizza&quot;,
+      &quot;type&quot;: &quot;line-dotted&quot;,
+      &quot;data&quot;: [
+        {
+          &quot;x&quot;: &quot;Pepperoni&quot;,
+          &quot;y&quot;: 10
+        },
+        {
+          &quot;x&quot;: &quot;Cheese&quot;,
+          &quot;y&quot;: 4
+        }
+      ]
+    }
+  ]
+}</code></pre>
+        </div>
+      </section>
+
+      <section>
+        
+        <article class="opt" id="data-xScale">
+          <h1><var class="rainbow"><span class="variable">xScale</span></var> </h1>
+          
+<p>Scale type to use along the x-axis (horizontal).</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">string</code></dd>
+  
+ 
+  <dt>Valid Options</dt>
+  
+  <dd><samp>ordinal</samp></dd>
+  
+  <dd><samp>linear</samp></dd>
+  
+  <dd><samp>time</samp></dd>
+  
+  <dd><samp>exponential</samp></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="data-yScale">
+          <h1><var class="rainbow"><span class="variable">yScale</span></var> </h1>
+          
+<p>Scale type to use along the y-axis (vertical).</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">string</code></dd>
+  
+ 
+  <dt>Valid Options</dt>
+  
+  <dd><samp>ordinal</samp></dd>
+  
+  <dd><samp>linear</samp></dd>
+  
+  <dd><samp>time</samp></dd>
+  
+  <dd><samp>exponential</samp></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="data-type">
+          <h1><var class="rainbow"><span class="variable">type</span></var> <em>optional</em></h1>
+          
+<p>The <em>vis type</em> to force the main data to display with. If not provided, will use the last set <em>vis type</em>, or the one provided at xChart creation time.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">string</code></dd>
+  
+ 
+  <dt>Valid Options</dt>
+  
+  <dd><samp>bar</samp></dd>
+  
+  <dd><samp>cumulative</samp></dd>
+  
+  <dd><samp>line</samp></dd>
+  
+  <dd><samp>line-dotted</samp></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="data-main">
+          <h1><var class="rainbow"><span class="variable">main</span></var> </h1>
+          
+<p>An array of data sets to be drawn.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">Array</code></dd>
+  
+ 
+ 
+</dl>
+
+<section class="opt">
+<pre><code data-language="javascript">{
+  "className": ".pizza",
+  "data": [
+    {
+      "x": "Pepperoni",
+      "y": 12
+    },
+    {
+      "x": "Cheese",
+      "y": 8
+    }
+  ]
+}</code></pre>
+
+  <h2><var>className</var></h2>
+  <p>A unique CSS Selector of classes to use in identifying the elements on the chart.</p>
+  <p>It's doubly important to note that this should be unique per chart. xCharts uses this value to determine whether a visualization should be destroyed or updated when changing data. If you reuse this selector, the current displayed visualization using this selector will be transitioned to match the new data.</p>
+
+  <h2><var>data</var></h2>
+  <p>An array of objects containing the <var>x</var> and <var>y</var> values. This data will be converted to ascending sort by xCharts.</p>
+</section>
+
+
+        </article>
+        
+        <article class="opt" id="data-comp">
+          <h1><var class="rainbow"><span class="variable">comp</span></var> <em>optional</em></h1>
+          
+<p>An array of data sets to be used as comparisons to the main data set. This set differs from <var>main</var> in that each set must have its own independent vis type</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">Array</code></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+      </section>
+    </article>
+
+    <hr>
+
+    <article id="methods" class="doc">
+      <h1>Methods</h1>
+
+      
+      <article class="opt" id="method-setData">
+        <h1><code class="rainbow">setData(data)</code></h1>
+        <p>Change the data that for this chart and animate from the current display to the new data.</p>
+
+        <dl>
+          
+          <dt><var>data</var></dt>
+          <dd>
+<p>See <a href="#data">Data Format</a> for format and more information.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">object</code></dd>
+  
+ 
+ 
+</dl>
+
+</dd>
+          
+        </dl>
+      </article>
+      
+      <article class="opt" id="method-setType">
+        <h1><code class="rainbow">setType(type)</code></h1>
+        <p>Change the vis type for this chart and animate the display.</p>
+
+        <dl>
+          
+          <dt><var>type</var></dt>
+          <dd>
+<p>The <em>vis type</em> to force the main data to display with. If not provided, will use the last set <em>vis type</em>, or the one provided at xChart creation time.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">string</code></dd>
+  
+ 
+  <dt>Valid Options</dt>
+  
+  <dd><samp>bar</samp></dd>
+  
+  <dd><samp>cumulative</samp></dd>
+  
+  <dd><samp>line</samp></dd>
+  
+  <dd><samp>line-dotted</samp></dd>
+  
+ 
+ 
+</dl>
+
+</dd>
+          
+        </dl>
+      </article>
+      
+      <article class="opt" id="method-setScale">
+        <h1><code class="rainbow">setScale(axis, type)</code></h1>
+        <p>Update an axis' scale type.</p>
+
+        <dl>
+          
+          <dt><var>axis</var></dt>
+          <dd>
+<p>The axis to change</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">string</code></dd>
+  
+ 
+  <dt>Valid Options</dt>
+  
+  <dd><samp>x</samp></dd>
+  
+  <dd><samp>y</samp></dd>
+  
+ 
+ 
+</dl>
+
+</dd>
+          
+          <dt><var>type</var></dt>
+          <dd>
+<p>Scale type to use along the y-axis (vertical).</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">string</code></dd>
+  
+ 
+  <dt>Valid Options</dt>
+  
+  <dd><samp>ordinal</samp></dd>
+  
+  <dd><samp>linear</samp></dd>
+  
+  <dd><samp>time</samp></dd>
+  
+  <dd><samp>exponential</samp></dd>
+  
+ 
+ 
+</dl>
+
+</dd>
+          
+        </dl>
+      </article>
+      
+    </article>
+
+    <hr>
+
+     <article id="options" class="doc">
+      <h1>Chart Options</h1>
+
+      <section>
+        
+        <article class="opt" id="opt-mouseover">
+          <h1><var class="rainbow"><span class="variable">mouseover</span></var></h1>
+          
+<p>Callback behavior for a user mousing over a data point.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">function</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">function (data, i) {}</code></dd>
+  
+ 
+ 
+  <dt>Arguments</dt>
+  <dd>
+    <dl>
+    
+    <dt><var>data</var></dt>
+    <dd>data for the element that was clicked</dd>
+    
+    <dt><var>i</var></dt>
+    <dd>the index of the data in the set</dd>
+    
+    </dl>
+  </dd>
+  
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-mouseout">
+          <h1><var class="rainbow"><span class="variable">mouseout</span></var></h1>
+          
+<p>Callback behavior for a user mousing off a data point.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">function</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">function (data, i) {}</code></dd>
+  
+ 
+ 
+  <dt>Arguments</dt>
+  <dd>
+    <dl>
+    
+    <dt><var>data</var></dt>
+    <dd>data for the element that was clicked</dd>
+    
+    <dt><var>i</var></dt>
+    <dd>the index of the data in the set</dd>
+    
+    </dl>
+  </dd>
+  
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-click">
+          <h1><var class="rainbow"><span class="variable">click</span></var></h1>
+          
+<p>Callback behavior for a user clicking a data point.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">function</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">function (data, i) {}</code></dd>
+  
+ 
+ 
+  <dt>Arguments</dt>
+  <dd>
+    <dl>
+    
+    <dt><var>data</var></dt>
+    <dd>data for the element that was clicked</dd>
+    
+    <dt><var>i</var></dt>
+    <dd>the index of the data in the set</dd>
+    
+    </dl>
+  </dd>
+  
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-axisPaddingTop">
+          <h1><var class="rainbow"><span class="variable">axisPaddingTop</span></var></h1>
+          
+<p>Amount of space between the top of the chart and the top value on the y-scale.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">int</code></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-axisPaddingRight">
+          <h1><var class="rainbow"><span class="variable">axisPaddingRight</span></var></h1>
+          
+<p>Amount of space between the right side of the chart and the highest value on the x-scale.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">int</code></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-axisPaddingBottom">
+          <h1><var class="rainbow"><span class="variable">axisPaddingBottom</span></var></h1>
+          
+<p>Amount of space between the bottom of the chart and the lowest value on the y-scale.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">int</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">5</code></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-axisPaddingLeft">
+          <h1><var class="rainbow"><span class="variable">axisPaddingLeft</span></var></h1>
+          
+<p>Amount of space between the left side of the chart and the lowest value on the x-scale.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">int</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">20</code></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-paddingTop">
+          <h1><var class="rainbow"><span class="variable">paddingTop</span></var></h1>
+          
+<p>Amount of space from the top edge of the svg element to the beginning of the <var>axisPaddingTop</var>.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">int</code></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-paddingRight">
+          <h1><var class="rainbow"><span class="variable">paddingRight</span></var></h1>
+          
+<p>Amount of space from the right edge of the svg element to the beginning of the <var>axisPaddingRight</var>.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">int</code></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-paddingBottom">
+          <h1><var class="rainbow"><span class="variable">paddingBottom</span></var></h1>
+          
+<p>Allows space for the x-axis scale. Controls the amount of space from the bottom edge of the svg element to the beginning of the <var>axisPaddingBottom</var>.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">int</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">20</code></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-paddingLeft">
+          <h1><var class="rainbow"><span class="variable">paddingLeft</span></var></h1>
+          
+<p>Allows space for the y-axis scale. Amount of space from the left edge of the svg element to the beginning of the <var>axisPaddingLeft</var>.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">int</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">60</code></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-tickHintX">
+          <h1><var class="rainbow"><span class="variable">tickHintX</span></var></h1>
+          
+<p>The amount of ticks that you would <em>like</em> to have displayed on the x-axis. Note: this is merely a guide and your results will likely vary.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">int</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">10</code></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-tickFormatX">
+          <h1><var class="rainbow"><span class="variable">tickFormatX</span></var></h1>
+          
+<p>Provide alternate formatting for the x-axis tick labels.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">function</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">function (x) { return x; }</code></dd>
+  
+ 
+ 
+  <dt>Arguments</dt>
+  <dd>
+    <dl>
+    
+    <dt><var>x</var></dt>
+    <dd>default tick value</dd>
+    
+    </dl>
+  </dd>
+  
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-tickHintY">
+          <h1><var class="rainbow"><span class="variable">tickHintY</span></var></h1>
+          
+<p>The amount of ticks that you would <em>like</em> to have displayed on the y-axis. Note: this is merely a guide and your results will likely vary.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">int</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">10</code></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-tickFormatY">
+          <h1><var class="rainbow"><span class="variable">tickFormatY</span></var></h1>
+          
+<p>Provide alternate formatting for the y-axis tick labels.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">function</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">function (y) { return y; }</code></dd>
+  
+ 
+ 
+  <dt>Arguments</dt>
+  <dd>
+    <dl>
+    
+    <dt><var>y</var></dt>
+    <dd>default tick value</dd>
+    
+    </dl>
+  </dd>
+  
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-dataFormatX">
+          <h1><var class="rainbow"><span class="variable">dataFormatX</span></var></h1>
+          
+<p>A method to pre-format the input data for the x-axis before attempting to compute a scale or draw.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">function</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">function (x) { return x; }</code></dd>
+  
+ 
+ 
+  <dt>Arguments</dt>
+  <dd>
+    <dl>
+    
+    <dt><var>x</var></dt>
+    <dd>datum x-value</dd>
+    
+    </dl>
+  </dd>
+  
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-dataFormatY">
+          <h1><var class="rainbow"><span class="variable">dataFormatY</span></var></h1>
+          
+<p>A method to pre-format the input data for the y-axis before attempting to compute a scale or draw.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">function</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">function (y) { return y; }</code></dd>
+  
+ 
+ 
+  <dt>Arguments</dt>
+  <dd>
+    <dl>
+    
+    <dt><var>y</var></dt>
+    <dd>datum y-value</dd>
+    
+    </dl>
+  </dd>
+  
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-unsupported">
+          <h1><var class="rainbow"><span class="variable">unsupported</span></var></h1>
+          
+<p>A callback method that will be invoked if SVG is not supported in the viewer's browser.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">function</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">function (selector) {
+  d3.select(selector).text(&#39;SVG is not supported on your browser&#39;);
+}</code></dd>
+  
+ 
+ 
+  <dt>Arguments</dt>
+  <dd>
+    <dl>
+    
+    <dt><var>selector</var></dt>
+    <dd>the selector used for this xChart&#39;s constructor</dd>
+    
+    </dl>
+  </dd>
+  
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-noDataMainOnly">
+          <h1><var class="rainbow"><span class="variable">noDataMainOnly</span></var></h1>
+          
+<p>TODO: fix and remove this</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">boolean</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">true</code></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-empty">
+          <h1><var class="rainbow"><span class="variable">empty</span></var></h1>
+          
+<p>A callback method invoked when the data set provided was empty and there is nothing to draw.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">function</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">function (self, selector, data) {}</code></dd>
+  
+ 
+ 
+  <dt>Arguments</dt>
+  <dd>
+    <dl>
+    
+    <dt><var>self</var></dt>
+    <dd>the xChart instance</dd>
+    
+    <dt><var>selector</var></dt>
+    <dd>the selector used for this xChart&#39;s constructor</dd>
+    
+    <dt><var>data</var></dt>
+    <dd>the chart&#39;s main data array</dd>
+    
+    </dl>
+  </dd>
+  
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-notempty">
+          <h1><var class="rainbow"><span class="variable">notempty</span></var></h1>
+          
+<p>The opposite of <var>empty</var>. Invoked if the data set provided was not empty.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">function</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">function (self, selector) {}</code></dd>
+  
+ 
+ 
+  <dt>Arguments</dt>
+  <dd>
+    <dl>
+    
+    <dt><var>self</var></dt>
+    <dd>the xChart instance</dd>
+    
+    <dt><var>selector</var></dt>
+    <dd>the selector used for this xChart&#39;s constructor</dd>
+    
+    </dl>
+  </dd>
+  
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-timing">
+          <h1><var class="rainbow"><span class="variable">timing</span></var></h1>
+          
+<p>The amount of time, in milliseconds, to transition during draw/update.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">int</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">750</code></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+        <article class="opt" id="opt-interpolation">
+          <h1><var class="rainbow"><span class="variable">interpolation</span></var></h1>
+          
+<p>Line interpolation to use when drawing lines. See <a target="_blank" href="https://github.com/mbostock/d3/wiki/SVG-Shapes#wiki-line_interpolate">d3.js's line.interpolate</a> for more information.</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">string</code></dd>
+  
+  <dt>Default</dt>
+  <dd><code data-language="javascript">monotone</code></dd>
+  
+ 
+ 
+</dl>
+
+
+        </article>
+        
+      </section>
+    </article>
+
+    <hr>
+
+    <article id="styles" class="doc">
+      <h1>Styling Your Chart</h1>
+
+      <p>Since xCharts (and D3.js) use SVG, we are able to accomplish most of our styling of xCharts directly through CSS. This means that, unlike many other charting libraries, you have quite a bit of control to handle the visualization however you want.</p>
+
+      <aside class="note">
+        <p>Included in the <a href="/xcharts/">xCharts download</a> is a starter stylesheet&mdash;one that will produce the same visual style that is given on this site. This file is generated via a <a target="_blank" href="http://lesscss.org">LESS</a> file, available from the GitHub repository.</p>
+      </aside>
+
+      <p>The best way to style charts is to start with the included stylesheet, or use your browser's element inspector to see each elements CSS class selectors that are available to use.</p>
+
+      <h2>Series Colors</h2>
+
+      <p>Each series in the chart is assigned a class, based on its index in your <code>main</code> and <code>comp</code> data sets: <code data-language="css">.color0</code> through <code data-language="css">.colorN</code>. While there can be an infinite amount of colors, it is recommended that you never chart more than 10 series at a time. Thus, only 10 colors are included in the starter stylesheet.</p>
+    </article>
+
+    <hr>
+
+    <article id="custom-vis-types" class="doc">
+      <h1>Custom Vis Types</h1>
+
+      <p>xCharts follows the "Enter, Update, Exit" methodology of D3.js. If you're unfamiliary with D3, a good starting reference point is <a target="_blank" href="http://bost.ocks.org/mike/join/">Thinking With Joins</a>.</p>
+
+      <p>To create your own vis type and make it available to xCharts, simply create an object of the necessary methods and define it for xCharts using the <code data-language="javascript">xChart.setVis(name, methods);</code> method.</p>
+
+      <pre><code data-language="javascript">var myVis = {
+ preUpdateScale: function () { /*...*/ }, // optional
+ postUpdateScale: function () { /*...*/ }, // optional
+ enter: function () { /*...*/ }, 
+ update: function () { /*...*/ }, 
+ exit: function () { /*...*/ }, 
+ destroy: function () { /*...*/ } 
+};
+xChart.setVis('myvis', MyVis);</code></pre>
+
+      <h2>Extending Base Vis Types</h2>
+
+      <p>It can be useful, at times, to extend a base vis type. For example, if you'd like to create a vis type that uses logic from the <var>line</var> vis type, simply ask xChart for the methods and reuse them:</p>
+
+      <pre><code data-language="javascript">var line = xChart.getVis('line');
+var myVis = {
+  enter: function (self, storage, data, className) {
+    line.enter.apply(this, arguments);
+    // Do your custom actions here
+  },
+  update: function (self, storage, timing) {
+    line.update.apply(this, arguments);
+    // Do your custom actions here
+  },
+  exit: function (self, storage, timing) {
+    line.exit.apply(this, arguments);
+    // Do your custom actions here
+  },
+  destroy: function (self, storage, timing) {
+    line.destroy.apply(this, arguments);
+    // Do your custom actions here
+  },
+};
+xChart.setVis('myvis', myVis);</code></pre>
+
+      <section>
+        <h2>Methods</h2>
+        
+        <article class="opt" id="vis-preUpdateScale">
+          <h1><code class="rainbow">preUpdateScale(self, scaleData, mainData, compData)</code></h1>
+
+          <p><em>Optional.</em> Executed before the scales have been created for the given data sets.</p>
+
+          <dl>
+            
+            <dt><var>self</var></dt>
+            <dd>the xChart instance</dd>
+            
+            <dt><var>scaleData</var></dt>
+            <dd>The union of the main and comp data sets</dd>
+            
+            <dt><var>mainData</var></dt>
+            <dd>The main data set</dd>
+            
+            <dt><var>compData</var></dt>
+            <dd>The comp data set</dd>
+            
+          </dl>
+
+          
+ <p>In cumulative charts, before we create the scale, we need to actually convert our raw data into cumulative data.</p>
+
+<div class="note"><p>This example is very barebones and for demonstration only. The actual process used by the <code>cumulative</code> vis type is much more involved and handles actually setting values and remembering original states.</p></div>
+
+<pre><code data-language="javascript">function preUpdateScale(self, data, mainData, compData) {
+  mainData = accumulateData(mainData);
+  compData = accumulateData(compData);
+}</code></pre>
+ 
+        </article>
+        
+        <article class="opt" id="vis-postUpdateScale">
+          <h1><code class="rainbow">postUpdateScale(self, scaleData, mainData, compData)</code></h1>
+
+          <p><em>Optional.</em> Executed after the scales have been created for the given data sets.</p>
+
+          <dl>
+            
+            <dt><var>self</var></dt>
+            <dd>the xChart instance</dd>
+            
+            <dt><var>scaleData</var></dt>
+            <dd>The union of the main and comp data sets</dd>
+            
+            <dt><var>mainData</var></dt>
+            <dd>The main data set</dd>
+            
+            <dt><var>compData</var></dt>
+            <dd>The comp data set</dd>
+            
+          </dl>
+
+          
+ <p>In bar charts, we need to create a second scale that will inform us how wide each bar series should be, and where they should be placed. For this, we use <code>postUpdateScale</code> to calculate a second ordinal scale, with reference to the first:</p>
+
+<pre><code data-language="javascript">function postUpdateScale(self, scaleData, mainData, compData) {
+  self.xScale2 = d3.scale.ordinal()
+    .domain(d3.range(0, mainData.length))
+    .rangeRoundBands([0, self.xScale.rangeBand()], 0.08);
+}</code></pre>
+ 
+        </article>
+        
+        <article class="opt" id="vis-enter">
+          <h1><code class="rainbow">enter(self, storage, data, className)</code></h1>
+
+          <p>As the first draw step, enter is used to create any elements that we need and bind the data information to each element.</p>
+
+          <dl>
+            
+            <dt><var>self</var></dt>
+            <dd>The xChart instance</dd>
+            
+            <dt><var>storage</var></dt>
+            <dd>A persistent object specific to this vis type for you to store data for later retrieval.</dd>
+            
+            <dt><var>data</var></dt>
+            <dd>The data that should be used for drawing this vis.</dd>
+            
+            <dt><var>className</var></dt>
+            <dd>A set of CSS classNames, dot-separated, that are recommended to be appended to the main element of this vis.</dd>
+            
+          </dl>
+
+          
+ <pre><code data-language="javascript">function enter(self, storage, className, data, callbacks) {
+  // Create a basic SVG line, setting the x-values based on the xScale
+  var line = d3.svg.line()
+      .interpolate(self._options.interpolation),
+    container,
+    paths;
+
+  // Create a container for each series in the data set
+  // Notice how `className` is used here as a way to persist objects across updates
+  container = self._g.selectAll(selector + className)
+    .data(data, function (d) {
+      return d.className;
+    });
+
+  container.enter().insert('g', insertBefore)
+    .attr('data-index', zIndex)
+    .attr('class', function (d, i) {
+      var cl = _.uniq((className + d.className).split('.')).join(' ');
+      // Notice how we append both a vis-type class and the indexed color class to each
+      return cl + ' line color' + i;
+    });
+
+  // In each container, we create a line and apply the y-scale as necessary
+  paths = container.selectAll('path.line')
+    .data(function (d) { return [d.data]; });
+
+  paths.enter().append('path')
+    .attr('class', 'line')
+    .style('opacity', 0)
+    .attr('d', storage.line
+      .x(function (d) { return self.xScale(new Date(d.x)); })
+      .y(function (d) { return self.yScale(d.y); })
+    );
+
+  // We will want these later during the update method
+  storage.lineContainers = container;
+  storage.linePaths = paths;
+  storage.line = line;
+}</code></pre>
+ 
+        </article>
+        
+        <article class="opt" id="vis-update">
+          <h1><code class="rainbow">update(self, storage, timing)</code></h1>
+
+          <p>During update, we loop over every element and transition its appearance, based on any changes that may have been made to our data series.</p>
+
+          <dl>
+            
+            <dt><var>self</var></dt>
+            <dd>The xChart instance</dd>
+            
+            <dt><var>storage</var></dt>
+            <dd>A persistent object specific to this vis type for you to store data for later retrieval.</dd>
+            
+            <dt><var>timing</var></dt>
+            <dd>Time, in milliseconds, for running transitions.</dd>
+            
+          </dl>
+
+          
+ <p>Using our previous example from <a href="#vis-enter"><code>enter</code></a>, we'll continue with updating our lines:</p>
+
+<pre><code data-language="javascript"> function update(self, storage, timing) {
+  // Update each line
+  storage.linePaths.transition().duration(timing)
+    .style('opacity', 1)
+    .attr('d', storage.line
+      .x(function (d) { return self.xScale(new Date(d.x)); })
+      .y(function (d) { return self.yScale(d.y); })
+    );
+}
+</code></pre>
+ 
+        </article>
+        
+        <article class="opt" id="vis-exit">
+          <h1><code class="rainbow">exit(self, storage, timing)</code></h1>
+
+          <p>Called as the last step of updating a vis, in this method we hide any visual elements that are no longer being used–elements from a previous data series that no longer exist in the new series.</p>
+
+          <dl>
+            
+            <dt><var>self</var></dt>
+            <dd>The xChart instance</dd>
+            
+            <dt><var>storage</var></dt>
+            <dd>A persistent object specific to this vis type for you to store data for later retrieval.</dd>
+            
+            <dt><var>timing</var></dt>
+            <dd>Time, in milliseconds, for running transitions.</dd>
+            
+          </dl>
+
+          
+ <p>During the <code>exit</code> method, we merely provide instructions for hiding the visual elements:</p>
+
+<pre><code data-language="javascript"> function exit(self, storage, timing) {
+  storage.lineContainers.exit().transition().duration(timing)
+    .style('opacity', 0);
+}
+</code></pre>
+ 
+        </article>
+        
+        <article class="opt" id="vis-destroy">
+          <h1><code class="rainbow">destroy(self, storage, timing)</code></h1>
+
+          <p>In the last step of our vis, we remove all displayed elements. This method is most called when xChart is instructed to change vis-types for the entire chart.</p>
+
+          <dl>
+            
+            <dt><var>self</var></dt>
+            <dd>The xChart instance</dd>
+            
+            <dt><var>storage</var></dt>
+            <dd>A persistent object specific to this vis type for you to store data for later retrieval.</dd>
+            
+            <dt><var>timing</var></dt>
+            <dd>Time, in milliseconds, for running transitions.</dd>
+            
+          </dl>
+
+          
+ <p>Since we'll be removing everything here, we'll transition the opacity to zero and then remove the elements:</p>
+
+<pre><code data-language="javascript">function destroy(self, storage, timing) {
+  storage.lineContainers.transition().duration(timing)
+    .style('opacity', 0)
+    .remove();
+}</code></pre>
+ 
+        </article>
+        
+      </section>
+    </article>
+
+    <hr>
+  </div>
+
+  <nav class="span3">
+    <ol class="docNav">
+      <li><a href="#quickstart">Quick Start</a></li>
+      <li>
+        <a href="#data">Data Format</a>
+        <ol>
+        
+          <li><a href="#data-xScale">xScale</a></li>
+        
+          <li><a href="#data-yScale">yScale</a></li>
+        
+          <li><a href="#data-type">type</a></li>
+        
+          <li><a href="#data-main">main</a></li>
+        
+          <li><a href="#data-comp">comp</a></li>
+        
+        </ol>
+      </li>
+      <li>
+        <a href="#methods">Methods</a>
+        <ol>
+        
+          <li><a href="#method-setData">setData</a></li>
+        
+          <li><a href="#method-setType">setType</a></li>
+        
+          <li><a href="#method-setScale">setScale</a></li>
+        
+        </ol>
+      </li>
+      <li>
+        <a href="#options">Chart Options</a>
+        <ol>
+        
+          <li><a href="#opt-mouseover">mouseover</a></li>
+        
+          <li><a href="#opt-mouseout">mouseout</a></li>
+        
+          <li><a href="#opt-click">click</a></li>
+        
+          <li><a href="#opt-axisPaddingTop">axisPaddingTop</a></li>
+        
+          <li><a href="#opt-axisPaddingRight">axisPaddingRight</a></li>
+        
+          <li><a href="#opt-axisPaddingBottom">axisPaddingBottom</a></li>
+        
+          <li><a href="#opt-axisPaddingLeft">axisPaddingLeft</a></li>
+        
+          <li><a href="#opt-paddingTop">paddingTop</a></li>
+        
+          <li><a href="#opt-paddingRight">paddingRight</a></li>
+        
+          <li><a href="#opt-paddingBottom">paddingBottom</a></li>
+        
+          <li><a href="#opt-paddingLeft">paddingLeft</a></li>
+        
+          <li><a href="#opt-tickHintX">tickHintX</a></li>
+        
+          <li><a href="#opt-tickFormatX">tickFormatX</a></li>
+        
+          <li><a href="#opt-tickHintY">tickHintY</a></li>
+        
+          <li><a href="#opt-tickFormatY">tickFormatY</a></li>
+        
+          <li><a href="#opt-dataFormatX">dataFormatX</a></li>
+        
+          <li><a href="#opt-dataFormatY">dataFormatY</a></li>
+        
+          <li><a href="#opt-unsupported">unsupported</a></li>
+        
+          <li><a href="#opt-noDataMainOnly">noDataMainOnly</a></li>
+        
+          <li><a href="#opt-empty">empty</a></li>
+        
+          <li><a href="#opt-notempty">notempty</a></li>
+        
+          <li><a href="#opt-timing">timing</a></li>
+        
+          <li><a href="#opt-interpolation">interpolation</a></li>
+        
+        </ol>
+      </li>
+      <li>
+        <a href="#styles">Styling Your Chart</a>
+      </li>
+      <li>
+        <a href="#custom-vis-types">Custom Vis Types</a>
+        <ol>
+          
+          <li><a href="#vis-preUpdateScale">preUpdateScale</a></li>
+          
+          <li><a href="#vis-postUpdateScale">postUpdateScale</a></li>
+          
+          <li><a href="#vis-enter">enter</a></li>
+          
+          <li><a href="#vis-update">update</a></li>
+          
+          <li><a href="#vis-exit">exit</a></li>
+          
+          <li><a href="#vis-destroy">destroy</a></li>
+          
+        </ol>
+      </li>
+    </ol>
+  </nav>
+</section>
+
+
+<footer>
+  <p>Copyright &copy;2012 <a href="https://www.tenxer.com">tenXer, Inc.</a></p>
+</footer>
+
+
+ 
+<script>
+(function () {
+  if (!window.addEventListener) {
+    return;
+  }
+  var $sidebar = $('.docNav'),
+    top = $sidebar.offset().top,
+    $links = $('a', $sidebar);
+
+  $(window).on('scroll', function (e) {
+    var scrollY = this.scrollY;
+    if (scrollY > top) {
+      $sidebar.addClass('fixed');
+    } else if (scrollY < top) {
+      $sidebar.removeClass('fixed');
+    }
+
+    $('.current').removeClass('current');
+    $links.each(function () {
+      var $this = $(this),
+        $section = $($this.attr('href'));
+      if ($section.offset().top <= scrollY) {
+        $('.current').removeClass('current');
+        $this.addClass('current');
+      } else {
+        $this.removeClass('current');
+      }
+    });
+    $('.current').parents('li').addClass('current');
+  });
+}());
+</script>
+
+</body>
+</html>

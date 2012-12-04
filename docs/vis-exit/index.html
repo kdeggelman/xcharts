@@ -1,0 +1,7 @@
+<p>During the <code>exit</code> method, we merely provide instructions for hiding the visual elements:</p>
+
+<pre><code data-language="javascript"> function exit(self, storage, timing) {
+  storage.lineContainers.exit().transition().duration(timing)
+    .style('opacity', 0);
+}
+</code></pre>
