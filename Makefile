@@ -19,7 +19,7 @@ build: pre-build \
 	build/xcharts.min.css \
 	build/LICENSE \
 	build/README.md
-	@tar -czf build.tar.gz build/
+	@tar -czf xcharts-build.tar.gz build/
 
 .INTERMEDIATE build/xcharts.js: \
 	scripts/wrap-start.js \

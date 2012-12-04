@@ -4,6 +4,6 @@ npm-debug.log
 *~
 tmp/*
 build/*
-build.tar.gz
+xcharts-build.tar.gz
 tmp_build/*
 views/*

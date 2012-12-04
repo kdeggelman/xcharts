@@ -3,4 +3,4 @@ test/**
 examples/**
 views/**
 tmp_build/**
-build.tar.gz
+*build.tar.gz
