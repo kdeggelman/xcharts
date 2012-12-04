@@ -1,0 +1,31 @@
+{% macro vars data %}
+<p>{{ data.desc|raw }}</p>
+<dl>
+  <dt>Type</dt>
+  <dd><code data-language="javascript">{{ data.type }}</code></dd>
+  {% if data.default %}
+  <dt>Default</dt>
+  <dd><code data-language="javascript">{{ data.default }}</code></dd>
+  {% endif %}
+  {% if data.options|length %}
+  <dt>Valid Options</dt>
+  {% for opt in data.options %}
+  <dd><samp>{{ opt }}</samp></dd>
+  {% endfor %}
+  {% endif %}
+  {% if data.arguments|length %}
+  <dt>Arguments</dt>
+  <dd>
+    <dl>
+    {% for arg in data.arguments %}
+    <dt><var>{{ loop.key }}</var></dt>
+    <dd>{{ arg }}</dd>
+    {% endfor %}
+    </dl>
+  </dd>
+  {% endif %}
+</dl>
+{% if data.inc %}
+{% include data.inc %}
+{% endif %}
+{% endmacro %}

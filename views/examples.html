@@ -1,0 +1,43 @@
+{% extends "layouts/master.html" %}
+{% set current_page = 'examples' %}
+
+{% block title %}{% parent %} » Examples{% endblock %}
+
+{% block page_content %}
+<section>
+  <h1>Examples</h1>
+
+  {% for ex in examples %}
+  <article class="example">
+    <h1>{{ ex.title }}</h1>
+    <p>{{ ex.desc }}</p>
+    <div class="row guttered">
+      <div class="span5">
+        <figure id="example{{ loop.index }}"></figure>
+      </div>
+      <div class="span7">
+        <pre><code data-language="javascript">{% if ex.scriptStart %}{{ ex.scriptStart }}
+{% endif -%}
+var data = {{ ex.data|json_encode(2) }};
+{%- if ex.opts %}
+var opts = {{ ex.opts|raw }};
+{%- endif %}
+var myChart = new xChart('{{ ex.type }}', data, '#example{{ loop.index }}'{% if ex.opts %}, opts{% endif %});</code></pre>
+      </div>
+    </div>
+    <script>
+    (function () {
+      {{ ex.scriptStart|raw }}
+      var data = {{ ex.data|json_encode(2)|raw }};
+      {%- if ex.opts %}
+      var opts = {{ ex.opts|raw }};
+      {% endif %}
+      var myChart = new xChart('{{ ex.type }}', data, '#example{{ loop.index }}'{% if ex.opts %}, opts{% endif %});
+    }());
+    </script>
+  </article>
+
+  <hr>
+  {% endfor %}
+</section>
+{% endblock %}

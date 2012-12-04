@@ -1,0 +1,20 @@
+{
+  "name": "xcharts-website",
+  "version": "0.0.0",
+  "description": "Website and documentation for xcharts.",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/tenxer/xcharts.git"
+  },
+  "author": "Paul Armstrong <paul@tenxer.com>",
+  "dependencies": {
+    "still": "*",
+    "swig": "*",
+    "less": "~1.3.1",
+    "d3": "~2",
+    "zepto": "0.0.3"
+  },
+  "devDependencies": {},
+  "private": true
+}

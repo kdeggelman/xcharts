@@ -1,0 +1,6 @@
+.DS_Store
+node_modules/*
+tmp_build/*
+build/*
+build.tar.gz
+views/css/*

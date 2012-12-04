@@ -1,0 +1,255 @@
+{% extends "layouts/master.html" %}
+{% set current_page = 'docs' %}
+
+{% block title %}{% parent %} » Documentation{% endblock %}
+
+{% import "macros.html" as docMacro %}
+
+{% block page_content %}
+<section class="row guttered">
+  <div class="span9">
+    <h1>Documentation</h1>
+
+    <article id="quickstart" class="doc">
+      <h1>Quick Start</h1>
+
+      <ol>
+        <li>Download and include <a target="_blank" href="http://d3js.org">D3.js</a> on your page.</li>
+        <li><a href="{{ baseurl }}/xcharts-build.tar.gz">Download</a> and include <code>xcharts.js</code> and <code>xcharts.css</code> on your page.</li>
+        <li>Configure your data using xChart's <a href="#data">Data Format</a>.</li>
+        <li>
+          Add an element to your page to display your chart:
+          <pre><code data-language="html">&lt;figure id="myChart"&gt;&lt;/figure&gt;</code></pre>
+        </li>
+        <li>
+          Create your chart:
+          <pre><code data-language="javascript">var myChart = new xChart('bar', data, '#myChart');</code></pre>
+        </li>
+      </ol>
+
+
+    </article>
+
+    <article id="data" class="doc clearfix">
+      <h1>Data Format</h1>
+
+      <section class="row guttered">
+        <div class="span6">
+          <p>xCharts uses its input data to instruct it on how the dataset should be  drawn. By providing the following data, an xChart will be instructed to  draw an  ordinal bar chart with a linear scale, containing two ordinal ticks on the x-axis for "Pepperoni" and "Cheese". There will also be a secondary dotted-line component overlayed on top of the bars.</p>
+
+          <figure style="height: 300px" id="pizza"></figure>
+          <script>new xChart('bar', {{ pizza|json_encode|raw }}, '#pizza');</script>
+        </div>
+        <div class="span6">
+          <h2>Example Data</h2>
+          <pre><code data-language="javascript">{{ pizza|json_encode(2) }}</code></pre>
+        </div>
+      </section>
+
+      <section>
+        {% for data in dataFormat %}
+        <article class="opt" id="data-{{ loop.key }}">
+          <h1><var class="rainbow"><span class="variable">{{ loop.key }}</span></var> {% if data.optional %}<em>optional</em>{% endif %}</h1>
+          {{ docMacro.vars(data) }}
+        </article>
+        {% endfor %}
+      </section>
+    </article>
+
+    <hr>
+
+    <article id="methods" class="doc">
+      <h1>Methods</h1>
+
+      {% for method in methods %}
+      <article class="opt" id="method-{{ loop.key }}">
+        <h1><code class="rainbow">{{ loop.key }}({% for arg in method.arguments %}{{ loop.key }}{% if not loop.last %}, {% endif %}{% endfor %})</code></h1>
+        <p>{{ method.desc|raw }}</p>
+
+        <dl>
+          {% for arg in method.arguments %}
+          <dt><var>{{ loop.key }}</var></dt>
+          <dd>{{ docMacro.vars(arg) }}</dd>
+          {% endfor %}
+        </dl>
+      </article>
+      {% endfor %}
+    </article>
+
+    <hr>
+
+     <article id="options" class="doc">
+      <h1>Chart Options</h1>
+
+      <section>
+        {% for opt in defaults %}
+        <article class="opt" id="opt-{{ loop.key }}">
+          <h1><var class="rainbow"><span class="variable">{{ loop.key }}</span></var></h1>
+          {{ docMacro.vars(opt) }}
+        </article>
+        {% endfor %}
+      </section>
+    </article>
+
+    <hr>
+
+    <article id="styles" class="doc">
+      <h1>Styling Your Chart</h1>
+
+      <p>Since xCharts (and D3.js) use SVG, we are able to accomplish most of our styling of xCharts directly through CSS. This means that, unlike many other charting libraries, you have quite a bit of control to handle the visualization however you want.</p>
+
+      <aside class="note">
+        <p>Included in the <a href="{{ baseurl }}/">xCharts download</a> is a starter stylesheet&mdash;one that will produce the same visual style that is given on this site. This file is generated via a <a target="_blank" href="http://lesscss.org">LESS</a> file, available from the GitHub repository.</p>
+      </aside>
+
+      <p>The best way to style charts is to start with the included stylesheet, or use your browser's element inspector to see each elements CSS class selectors that are available to use.</p>
+
+      <h2>Series Colors</h2>
+
+      <p>Each series in the chart is assigned a class, based on its index in your <code>main</code> and <code>comp</code> data sets: <code data-language="css">.color0</code> through <code data-language="css">.colorN</code>. While there can be an infinite amount of colors, it is recommended that you never chart more than 10 series at a time. Thus, only 10 colors are included in the starter stylesheet.</p>
+    </article>
+
+    <hr>
+
+    <article id="custom-vis-types" class="doc">
+      <h1>Custom Vis Types</h1>
+
+      <p>xCharts follows the "Enter, Update, Exit" methodology of D3.js. If you're unfamiliary with D3, a good starting reference point is <a target="_blank" href="http://bost.ocks.org/mike/join/">Thinking With Joins</a>.</p>
+
+      <p>To create your own vis type and make it available to xCharts, simply create an object of the necessary methods and define it for xCharts using the <code data-language="javascript">xChart.setVis(name, methods);</code> method.</p>
+
+      <pre><code data-language="javascript">var myVis = {
+{%- for method in vismethods %}
+  {{ loop.key }}: function () { /*...*/ }{% if not loop.last %},{% endif %} {% if method.optional %}// optional{% endif %}
+{%- endfor %}
+};
+xChart.setVis('myvis', MyVis);</code></pre>
+
+      <h2>Extending Base Vis Types</h2>
+
+      <p>It can be useful, at times, to extend a base vis type. For example, if you'd like to create a vis type that uses logic from the <var>line</var> vis type, simply ask xChart for the methods and reuse them:</p>
+
+      <pre><code data-language="javascript">var line = xChart.getVis('line');
+var myVis = {
+  enter: function (self, storage, data, className) {
+    line.enter.apply(this, arguments);
+    // Do your custom actions here
+  },
+  update: function (self, storage, timing) {
+    line.update.apply(this, arguments);
+    // Do your custom actions here
+  },
+  exit: function (self, storage, timing) {
+    line.exit.apply(this, arguments);
+    // Do your custom actions here
+  },
+  destroy: function (self, storage, timing) {
+    line.destroy.apply(this, arguments);
+    // Do your custom actions here
+  },
+};
+xChart.setVis('myvis', myVis);</code></pre>
+
+      <section>
+        <h2>Methods</h2>
+        {% for method in vismethods %}
+        <article class="opt" id="vis-{{ loop.key }}">
+          <h1><code class="rainbow">{{ loop.key }}({% for arg in method.arguments %}{{ loop.key }}{% if not loop.last %}, {% endif %}{% endfor %})</code></h1>
+
+          <p>{% if method.optional %}<em>Optional.</em> {% endif %}{{ method.desc|raw }}</p>
+
+          <dl>
+            {% for arg in method.arguments %}
+            <dt><var>{{ loop.key }}</var></dt>
+            <dd>{{ arg }}</dd>
+            {% endfor %}
+          </dl>
+
+          {% if method.inc %}
+          {% include method.inc ignore missing %}
+          {% endif %}
+        </article>
+        {% endfor %}
+      </section>
+    </article>
+
+    <hr>
+  </div>
+
+  <nav class="span3">
+    <ol class="docNav">
+      <li><a href="#quickstart">Quick Start</a></li>
+      <li>
+        <a href="#data">Data Format</a>
+        <ol>
+        {% for data in dataFormat %}
+          <li><a href="#data-{{ loop.key }}">{{ loop.key }}</a></li>
+        {% endfor %}
+        </ol>
+      </li>
+      <li>
+        <a href="#methods">Methods</a>
+        <ol>
+        {% for method in methods %}
+          <li><a href="#method-{{ loop.key }}">{{ loop.key }}</a></li>
+        {% endfor %}
+        </ol>
+      </li>
+      <li>
+        <a href="#options">Chart Options</a>
+        <ol>
+        {% for opt in defaults %}
+          <li><a href="#opt-{{ loop.key }}">{{ loop.key }}</a></li>
+        {% endfor %}
+        </ol>
+      </li>
+      <li>
+        <a href="#styles">Styling Your Chart</a>
+      </li>
+      <li>
+        <a href="#custom-vis-types">Custom Vis Types</a>
+        <ol>
+          {% for method in vismethods %}
+          <li><a href="#vis-{{ loop.key }}">{{ loop.key }}</a></li>
+          {% endfor %}
+        </ol>
+      </li>
+    </ol>
+  </nav>
+</section>
+{% endblock %}
+
+{% block js %}
+<script>
+(function () {
+  if (!window.addEventListener) {
+    return;
+  }
+  var $sidebar = $('.docNav'),
+    top = $sidebar.offset().top,
+    $links = $('a', $sidebar);
+
+  $(window).on('scroll', function (e) {
+    var scrollY = this.scrollY;
+    if (scrollY > top) {
+      $sidebar.addClass('fixed');
+    } else if (scrollY < top) {
+      $sidebar.removeClass('fixed');
+    }
+
+    $('.current').removeClass('current');
+    $links.each(function () {
+      var $this = $(this),
+        $section = $($this.attr('href'));
+      if ($section.offset().top <= scrollY) {
+        $('.current').removeClass('current');
+        $this.addClass('current');
+      } else {
+        $this.removeClass('current');
+      }
+    });
+    $('.current').parents('li').addClass('current');
+  });
+}());
+</script>
+{% endblock %}

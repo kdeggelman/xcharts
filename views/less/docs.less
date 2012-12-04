@@ -1,0 +1,105 @@
+.doc {
+  h1, h2 {
+    margin: 0;
+  }
+  h1 em {
+    font-weight: normal;
+    font-size: @fontSize;
+  }
+  h2 {
+    font-size: 16px;
+  }
+
+  dl {
+    .clearfix;
+    padding: 0 0 0 @halfGutter;
+    margin: 0 0 @quarterGutter @halfGutter;
+    border-left: 5px solid @colorFlyweight;
+  }
+
+  dt,
+  dd {
+    float: left;
+  }
+  dt {
+    margin: 0 0.5em 0 0;
+    clear: left;
+    &:after {
+      content: ":";
+    }
+  }
+  dd + dd:before {
+    content: ", ";
+    margin: 0 0.5em 0 0;
+  }
+}
+
+.opt {
+  h1,
+  h1 var,
+  h1 code {
+    font-size: @fontSize;
+  }
+  .opt {
+    margin: 0 @halfGutter;
+    h2 { margin: 0; }
+  }
+}
+
+hr {
+  position: relative;
+  z-index: -1;
+  clear: both;
+  &:before {
+    content: '…';
+    .text-hidden;
+    left: 0;
+    right: 0;
+    top: 0;
+    position: absolute;
+    .box-shadow(0 -8px 8px -8px fade(@colorSumo, 20%));
+  }
+  border-top: 1px solid fade(@colorSumo, 20%);
+  margin: 0 0 @gutter 0;
+}
+
+.docNav {
+  list-style: none;
+  margin: 0;
+  &.fixed {
+    position: fixed;
+    top: @quarterGutter;
+  }
+  ol {
+    padding: 0 0 0 @quarterGutter;
+    margin: 0 0 0 @quarterGutter;
+    border-left: 5px solid @colorFlyweight;
+    height: 0;
+    overflow: hidden;
+    list-style: none;
+    .transition(height 0.25s);
+  }
+  li.current {
+    & > a {
+      background: @colorFlyweight;
+    }
+    a.current {
+      color: @colorMiddleweight;
+      background: fade(@colorFlorida, 30%);
+    }
+    ol {
+      height: auto;
+      overflow: visible;
+    }
+  }
+}
+
+.note {
+  margin: @halfGutter @gutter;
+  padding: @halfGutter;
+  background: @colorFlyweight;
+  border: 1px solid @colorBantamweight;
+  .border-radius(5px);
+  :first-child { margin-top: 0; }
+  :last-child { margin-bottom: 0; }
+}

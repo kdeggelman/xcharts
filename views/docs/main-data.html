@@ -1,0 +1,22 @@
+<section class="opt">
+<pre><code data-language="javascript">{
+  "className": ".pizza",
+  "data": [
+    {
+      "x": "Pepperoni",
+      "y": 12
+    },
+    {
+      "x": "Cheese",
+      "y": 8
+    }
+  ]
+}</code></pre>
+
+  <h2><var>className</var></h2>
+  <p>A unique CSS Selector of classes to use in identifying the elements on the chart.</p>
+  <p>It's doubly important to note that this should be unique per chart. xCharts uses this value to determine whether a visualization should be destroyed or updated when changing data. If you reuse this selector, the current displayed visualization using this selector will be transitioned to match the new data.</p>
+
+  <h2><var>data</var></h2>
+  <p>An array of objects containing the <var>x</var> and <var>y</var> values. This data will be converted to ascending sort by xCharts.</p>
+</section>

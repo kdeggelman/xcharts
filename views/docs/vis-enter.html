@@ -1,0 +1,39 @@
+<pre><code data-language="javascript">function enter(self, storage, className, data, callbacks) {
+  // Create a basic SVG line, setting the x-values based on the xScale
+  var line = d3.svg.line()
+      .interpolate(self._options.interpolation),
+    container,
+    paths;
+
+  // Create a container for each series in the data set
+  // Notice how `className` is used here as a way to persist objects across updates
+  container = self._g.selectAll(selector + className)
+    .data(data, function (d) {
+      return d.className;
+    });
+
+  container.enter().insert('g', insertBefore)
+    .attr('data-index', zIndex)
+    .attr('class', function (d, i) {
+      var cl = _.uniq((className + d.className).split('.')).join(' ');
+      // Notice how we append both a vis-type class and the indexed color class to each
+      return cl + ' line color' + i;
+    });
+
+  // In each container, we create a line and apply the y-scale as necessary
+  paths = container.selectAll('path.line')
+    .data(function (d) { return [d.data]; });
+
+  paths.enter().append('path')
+    .attr('class', 'line')
+    .style('opacity', 0)
+    .attr('d', storage.line
+      .x(function (d) { return self.xScale(new Date(d.x)); })
+      .y(function (d) { return self.yScale(d.y); })
+    );
+
+  // We will want these later during the update method
+  storage.lineContainers = container;
+  storage.linePaths = paths;
+  storage.line = line;
+}</code></pre>

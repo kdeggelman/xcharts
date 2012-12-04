@@ -1,0 +1,104 @@
+.logo {
+  @width: @gutter * 3;
+  padding: @gutter 0 @halfGutter (@width * 2) + @halfGutter;
+  @lHeight: 44px;
+  line-height: @lHeight;
+  position: relative;
+  .tenxerLogo,
+  .xChartLogo {
+    position: absolute;
+    height: @lHeight;
+    width: @width;
+    height: @lHeight;
+    line-height: @lHeight;
+    border: 1px solid @colorSumo;
+    font-size: 22px;
+    text-shadow: 0 1px 3px fade(#000, 40%);
+    font-weight: normal;
+    a {
+      display: block;
+      color: #FFF;
+      margin: 0;
+      padding: 0;
+    }
+    @shadow: inset 0 1px 2px -1px fade(#FFF, 80%), 0 1px 3px fade(#000, 40%);
+    .box-shadow(@shadow);
+  }
+  .tenxerLogo {
+    left: 0;
+    .border-radius(4px 0 0 4px);
+    #gradient .radial(lighten(@colorFlorida, 10%), @colorFlorida);
+    &:hover {
+      #gradient .radial(lighten(@colorFlorida, 20%), lighten(@colorFlorida, 10%));
+    }
+    a {
+      width: 100%;
+      text-align: center;
+      background: none;
+      img {
+        margin: (@lHeight - 28px) / 2 0;
+      }
+    }
+  }
+  .xChartLogo {
+    left: @width - 1px;
+    .border-radius(0 4px 4px 0);
+    #gradient .radial(lighten(@colorSumo, 20%), @colorSumo);
+    &:hover {
+      #gradient .radial(lighten(@colorSumo, 30%), lighten(@colorSumo, 10%));
+    }
+    text-align: center;
+  }
+  h3 {
+    font-weight: normal;
+    font-size: 14px;
+    line-height: @lHeight;
+  }
+}
+
+.mainHeader {
+  nav {
+    margin: 0 0 @halfGutter;
+    #gradient .vertical(#FFF, @colorFlyweight);
+    border: 1px solid @colorLightweight;
+    line-height: @gutter - 2px;
+    height: @gutter;
+    font-size: @fontSize;
+    .border-radius(3px);
+    .box-shadow(0 1px 2px fade(#000, 10%));
+    position: relative;
+    ul {
+      margin: 0;
+    }
+    li {
+      list-style: none;
+      float: left;
+      font-weight: bold;
+    }
+    a {
+      display: block;
+      height: @gutter - 2px;
+      padding: 0 @halfGutter;
+      margin: 0;
+      .border-radius(0);
+      border-right: 1px solid @colorLightweight;
+      .font-smoothing;
+      &:hover {
+        text-decoration: none;
+        background: fade(@colorFlorida, 15%);
+      }
+    }
+    .current a,
+    a:active {
+      background: @colorFlyweight;
+      .box-shadow(inset 0 1px 4px fade(#000, 20%));
+    }
+    &:after {
+      content: 'tenXer • xCharts';
+      position: absolute;
+      right: @quarterGutter;
+      bottom: 0;
+      color: @colorLightweight;
+    }
+  }
+}

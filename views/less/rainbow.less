@@ -1,0 +1,52 @@
+@codeBg: lighten(@colorFlyweight, 2%);
+pre {
+  background: @codeBg;
+  padding: @quarterGutter;
+  margin: 0 0 @halfGutter;
+  .border-radius;
+  .box-shadow(inset 0 1px 3px fade(@colorSumo, 40%));
+}
+.rainbow {
+  word-wrap: break-word;
+  background: transparent;
+  .comment {
+    color: #999;
+  }
+  .constant {
+    color: @colorFriday;
+  }
+  .storage {
+    color: @colorWelterweight;
+  }
+  .string,
+  .comment.docstring {
+    color: mix(lighten(@colorOhShit, 10%), saturate(@colorFlorida, 30%));
+  }
+  .string.regexp,
+  .support.tag.script,
+  .support.tag.style {
+
+  }
+  .keyword,
+  .selector {
+    color: @colorWelterweight;
+  }
+  .inherited-class {
+
+  }
+  .entity {
+    color: @colorGravy;
+  }
+  .support,
+  .function.call {
+    color: darken(@colorMellow, 60%);
+  }
+  .variable {
+    color: @colorHeavyweight;
+    // &.global,
+    // &.class,
+    // &.instance {
+
+    // }
+  }
+}
