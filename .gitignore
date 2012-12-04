@@ -2,5 +2,5 @@
 node_modules/*
 tmp_build/*
 build/*
-build.tar.gz
+xcharts-build.tar.gz
 views/css/*

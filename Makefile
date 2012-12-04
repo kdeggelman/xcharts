@@ -29,7 +29,7 @@ build: clean
 	@cp node_modules/zepto/zepto.min.js ${tmp}/js/zepto.min.js
 	@cp build/xcharts*js ${tmp}/js/
 	@git checkout master
-	@cp build.tar.gz ${tmp}/xcharts-build.tar.gz
+	@cp xcharts-build.tar.gz ${tmp}/xcharts-build.tar.gz
 	@git checkout ${branch}
 	@cp -r ${tmp}/* ./
 	@rm -rf ${tmp}
