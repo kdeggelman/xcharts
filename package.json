@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "description": "A D3-based library for building custom charts and graphs.",
   "main": "build/xcharts.js",
-  "homepage": "http://tenxer.github.com/xCharts/",
+  "homepage": "http://tenxer.github.com/xcharts/",
   "scripts": {
     "test": "make lint && make test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tenxer/xCharts.git"
+    "url": "https://github.com/tenxer/xcharts.git"
   },
-  "bugs": "https://github.com/tenxer/xCharts/issues",
+  "bugs": "https://github.com/tenxer/xcharts/issues",
   "keywords": [
     "chart",
     "d3.js",
