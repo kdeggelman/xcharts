@@ -2,3 +2,6 @@ script: "make lint && make test reporter=spec"
 language: node_js
 node_js:
   - 0.8
+branches:
+  only:
+    - master
