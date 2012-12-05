@@ -22,7 +22,10 @@ var data = {{ ex.data|json_encode(2) }};
 {%- if ex.opts %}
 var opts = {{ ex.opts|raw }};
 {%- endif %}
-var myChart = new xChart('{{ ex.type }}', data, '#example{{ loop.index }}'{% if ex.opts %}, opts{% endif %});</code></pre>
+var myChart = new xChart('{{ ex.type }}', data, '#example{{ loop.index }}'{% if ex.opts %}, opts{% endif %});
+{%- if ex.scriptEnd %}
+
+{{ ex.scriptEnd }}{% endif %}</code></pre>
       </div>
     </div>
     <script>
@@ -33,11 +36,347 @@ var myChart = new xChart('{{ ex.type }}', data, '#example{{ loop.index }}'{% if 
       var opts = {{ ex.opts|raw }};
       {% endif %}
       var myChart = new xChart('{{ ex.type }}', data, '#example{{ loop.index }}'{% if ex.opts %}, opts{% endif %});
+      {% if ex.scriptEnd %}
+      {{ ex.scriptEnd }}
+      {% endif %}
     }());
     </script>
   </article>
 
   <hr>
   {% endfor %}
+
+  <article id="custom" class="example">
+    <h1>Example Custom Vis Type: Error Bars</h1>
+    <p>Error bars are used to represent the variability of data displayed. In this example, I'll create a custom vis type for the errors, that can be used within the <code>comp</code> data set in xCharts. For detailed documentation of methods, check out the <a href="{{ baseurl }}/docs/#custom-vis-types">Custom Vis Types Documentation</a>.</p>
+
+    <div class="row guttered">
+      <div class="span5">
+        <figure id="exampleVis"></figure>
+      </div>
+      <div class="span7">
+        <p>First, lets create our custom vis. There are many comments inline to help explain what we're doing:</p>
+        <pre><code data-language="javascript">var errorBar = {
+  enter: function (self, storage, className, data, callbacks) {
+    var insertionPoint = xChart.visutils.getInsertionPoint(9),
+      container,
+      // Map each error bar into 3 points, so it's easier to draw as a single path
+      // Converts each point to a triplet with y from (y - e) to (y + e)
+      // It would be better to use the `preUpdateScale` method here,
+      // but for this quick example, we're taking a shortcut :)
+      eData = data.map(function (d) {
+        d.data = d.data.map(function (d) {
+          return [{x: d.x, y: d.y - d.e}, {x: d.x, y: d.y}, {x: d.x, y: d.y + d.e}];
+        });
+        return d;
+      }),
+      paths;
+
+    // It's always a good idea to create containers for sets
+    container = self._g.selectAll('.errorLine' + className)
+      .data(eData, function (d) {
+        return d.className;
+      });
+
+    // The insertionPoint is a special method that helps us insert this
+    // vis at a particular z-index
+    // In this case, we've chosen the highest point (above everything else)
+    container.enter().insert('g', insertionPoint)
+      .attr('class', function (d, i) {
+        return 'errorLine' + className.replace(/\./g, ' ') +
+          ' color' + i;
+      });
+
+    // Tell each path about its data
+    // and ensure we reuse any previously drawn item
+    paths = container.selectAll('path')
+      .data(function (d) {
+        return d.data;
+      }, function (d) {
+        return d[0].x;
+      });
+
+    paths.enter().insert('path')
+      .style('opacity', 0)
+      .attr('d', d3.svg.line()
+        .x(function (d) {
+          // We offset by half the rangeBand, because this is a bar chart
+          return self.xScale(d.x) + self.xScale.rangeBand() / 2;
+        })
+        .y(function (d) { return self.yScale(d.y); })
+      );
+
+    storage.containers = container;
+    storage.paths = paths;
+  },
+  update: function (self, storage, timing) {
+    // This is mostly duplication to the d3.svg.line from the enter() method
+    storage.paths.transition().duration(timing)
+      .style('opacity', 1)
+      .attr('d', d3.svg.line()
+        .x(function (d) {
+          return self.xScale(d.x) + self.xScale.rangeBand() / 2;
+        })
+        .y(function (d) { return self.yScale(d.y); })
+      );
+  },
+  exit: function (self, storage, timing) {
+    storage.paths.exit()
+      .transition().duration(timing)
+      .style('opacity', 0);
+  },
+  destroy: function (self, storage, timing) {
+    storage.paths.transition().duration(timing)
+      .style('opacity', 0)
+      .remove();
+  }
+};</code></pre>
+
+<p>Next, we'll let <code>xChart</code> know about our new vis type:</p>
+
+<pre><code data-language="javascript">xChart.setVis('error', errorBar);</code></pre>
+
+<p>Here's the first data set that is drawn on our example. Notice how in the <code>comp</code> data set, I've added an extra key to each point: <code>e</code>, which will tell us the margin of error:</p>
+
+<pre><code data-language="javascript">var data = {
+    "xScale": "ordinal",
+    "yScale": "linear",
+    "main": [
+      {
+        "className": ".errorExample",
+        "data": [
+          {
+            "x": "Ponies",
+            "y": 12
+          },
+          {
+            "x": "Unicorns",
+            "y": 23
+          },
+          {
+            "x": "Trolls",
+            "y": 1
+          }
+        ]
+      }
+    ],
+    "comp": [
+      {
+        "type": "error",
+        "className": ".comp.errorBar",
+        "data": [
+          {
+            "x": "Ponies",
+            "y": 12,
+            "e": 5
+          },
+          {
+            "x": "Unicorns",
+            "y": 23,
+            "e": 2
+          },
+          {
+            "x": "Trolls",
+            "y": 1,
+            "e": 1
+          }
+        ]
+      }
+    ]
+  };</code></pre>
+
+  <p>Last: Create a new xChart with our data:</p>
+
+<pre><code data-language="javascript">var myChart = new xChart('bar', data, '#exampleVis');</code></pre>
+
+      </div>
+    </div>
+
+    <script>
+    (function () {
+      var errorBar = {
+        enter: function (self, storage, className, data, callbacks) {
+          var insertionPoint = xChart.visutils.getInsertionPoint(9),
+            container,
+            eData = data.map(function (d) {
+              d.data = d.data.map(function (d) {
+                return [{x: d.x, y: d.y - d.e}, {x: d.x, y: d.y}, {x: d.x, y: d.y + d.e}];
+              });
+              return d;
+            }),
+            paths;
+
+          container = self._g.selectAll('.errorLine' + className)
+            .data(eData, function (d) {
+              return d.className;
+            });
+
+          container.enter().insert('g', insertionPoint)
+            .attr('class', function (d, i) {
+              return 'errorLine' + className.replace(/\./g, ' ') + ' color' + i;
+            });
+
+          paths = container.selectAll('path')
+            .data(function (d) {
+              return d.data;
+            }, function (d) {
+              return d[0].x;
+            });
+
+          paths.enter().insert('path')
+            .style('opacity', 0)
+            .attr('d', d3.svg.line()
+              .x(function (d) {
+                return self.xScale(d.x) + self.xScale.rangeBand() / 2;
+              })
+              .y(function (d) { return self.yScale(d.y); })
+            );
+
+          storage.containers = container;
+          storage.paths = paths;
+        },
+        update: function (self, storage, timing) {
+          storage.paths.transition().duration(timing)
+            .style('opacity', 1)
+            .attr('d', d3.svg.line()
+              .x(function (d) {
+                return self.xScale(d.x) + self.xScale.rangeBand() / 2;
+              })
+              .y(function (d) { return self.yScale(d.y); })
+            );
+        },
+        exit: function (self, storage, timing) {
+          storage.paths.exit()
+            .transition().duration(timing)
+            .style('opacity', 0);
+        },
+        destroy: function (self, storage, timing) {
+          storage.paths.transition().duration(timing)
+            .style('opacity', 0)
+            .remove();
+        }
+      };
+
+      xChart.setVis('error', errorBar);
+
+      var data = [{
+          "xScale": "ordinal",
+          "yScale": "linear",
+          "main": [
+            {
+              "className": ".errorExample",
+              "data": [
+                {
+                  "x": "Ponies",
+                  "y": 12
+                },
+                {
+                  "x": "Unicorns",
+                  "y": 23
+                },
+                {
+                  "x": "Trolls",
+                  "y": 1
+                }
+              ]
+            }
+          ],
+          "comp": [
+            {
+              "type": "error",
+              "className": ".comp.errorBar",
+              "data": [
+                {
+                  "x": "Ponies",
+                  "y": 12,
+                  "e": 5
+                },
+                {
+                  "x": "Unicorns",
+                  "y": 23,
+                  "e": 2
+                },
+                {
+                  "x": "Trolls",
+                  "y": 1,
+                  "e": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "xScale": "ordinal",
+          "yScale": "linear",
+          "main": [
+            {
+              "className": ".errorExample",
+              "data": [
+                {
+                  "x": "Ponies",
+                  "y": 76
+                },
+                {
+                  "x": "Unicorns",
+                  "y": 45
+                },
+                {
+                  "x": "Trolls",
+                  "y": 82
+                }
+              ]
+            }
+          ],
+          "comp": [
+            {
+              "type": "error",
+              "className": ".comp.errorBar",
+              "data": [
+                {
+                  "x": "Ponies",
+                  "y": 76,
+                  "e": 12
+                },
+                {
+                  "x": "Unicorns",
+                  "y": 45,
+                  "e": 3
+                },
+                {
+                  "x": "Trolls",
+                  "y": 82,
+                  "e": 12
+                }
+              ]
+            }
+          ]
+        }
+      ];
+
+      var myChart = new xChart('bar', data[0], '#exampleVis'),
+        i = 0;
+
+      function timer() {
+        setTimeout(function () {
+          timer();
+          i += 1;
+          myChart.setData(data[i % 2]);
+        }, 3000);
+      }
+      timer();
+    }());
+    </script>
+  </article>
 </section>
+{% endblock %}
+
+{% block css %}
+  {% parent %}
+
+  <style>
+  .xchart .errorLine path {
+    stroke: #C6080D;
+    stroke-width: 3px;
+  }
+  </style>
 {% endblock %}
