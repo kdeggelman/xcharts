@@ -26,7 +26,6 @@ build: clean
 	@node_modules/.bin/lessc --yui-compress --include-path=views/less views/less/master.less views/css/master.css
 	@node_modules/.bin/still views -o ${tmp} -i "layouts" -i "json" -i "less" -i "macro"
 	@cp node_modules/d3/d3.v2.min.js ${tmp}/js/d3.v2.min.js
-	@cp node_modules/zepto/zepto.min.js ${tmp}/js/zepto.min.js
 	@cp build/xcharts*js ${tmp}/js/
 	@git checkout master
 	@cp xcharts-build.tar.gz ${tmp}/xcharts-build.tar.gz
