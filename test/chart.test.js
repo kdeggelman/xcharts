@@ -96,7 +96,8 @@
 
       it('adds event listener to window resize event', function () {
         var c = new xChart('bar', mData, container);
-        expect(d3.select(window).on('resize')).to.be.a('function');
+        expect(d3.select(window).on('resize.for.' + container))
+          .to.be.a('function');
       });
 
       it('data vis type is not overridden by type argument', function () {
