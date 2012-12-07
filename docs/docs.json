@@ -1,0 +1,320 @@
+{
+  "defaults": {
+    "mouseover": {
+      "type": "function",
+      "default": "function (data, i) {}",
+      "arguments": {
+        "data": "data for the element that was clicked",
+        "i": "the index of the data in the set"
+      },
+      "desc": "Callback behavior for a user mousing over a data point."
+    },
+    "mouseout": {
+      "type": "function",
+      "default": "function (data, i) {}",
+      "arguments": {
+        "data": "data for the element that was clicked",
+        "i": "the index of the data in the set"
+      },
+      "desc": "Callback behavior for a user mousing off a data point."
+    },
+    "click": {
+      "type": "function",
+      "default": "function (data, i) {}",
+      "arguments": {
+        "data": "data for the element that was clicked",
+        "i": "the index of the data in the set"
+      },
+      "desc": "Callback behavior for a user clicking a data point."
+    },
+    "axisPaddingTop": {
+      "type": "int",
+      "default": 0,
+      "desc": "Amount of space between the top of the chart and the top value on the y-scale."
+    },
+    "axisPaddingRight": {
+      "type": "int",
+      "default": 0,
+      "desc": "Amount of space between the right side of the chart and the highest value on the x-scale."
+    },
+    "axisPaddingBottom": {
+      "type": "int",
+      "default": 5,
+      "desc": "Amount of space between the bottom of the chart and the lowest value on the y-scale."
+    },
+    "axisPaddingLeft": {
+      "type": "int",
+      "default": 20,
+      "desc": "Amount of space between the left side of the chart and the lowest value on the x-scale."
+    },
+    "paddingTop": {
+      "type": "int",
+      "default": 0,
+      "desc": "Amount of space from the top edge of the svg element to the beginning of the <var>axisPaddingTop</var>."
+    },
+    "paddingRight": {
+      "type": "int",
+      "default": 0,
+      "desc": "Amount of space from the right edge of the svg element to the beginning of the <var>axisPaddingRight</var>."
+    },
+    "paddingBottom": {
+      "type": "int",
+      "default": 20,
+      "desc": "Allows space for the x-axis scale. Controls the amount of space from the bottom edge of the svg element to the beginning of the <var>axisPaddingBottom</var>."
+    },
+    "paddingLeft": {
+      "type": "int",
+      "default": 60,
+      "desc": "Allows space for the y-axis scale. Amount of space from the left edge of the svg element to the beginning of the <var>axisPaddingLeft</var>."
+    },
+    "tickHintX": {
+      "type": "int",
+      "default": 10,
+      "desc": "The amount of ticks that you would <em>like</em> to have displayed on the x-axis. Note: this is merely a guide and your results will likely vary."
+    },
+    "tickFormatX": {
+      "type": "function",
+      "default": "function (x) { return x; }",
+      "desc": "Provide alternate formatting for the x-axis tick labels.",
+      "arguments": {
+        "x": "default tick value"
+      }
+    },
+    "tickHintY": {
+      "type": "int",
+      "default": 10,
+      "desc": "The amount of ticks that you would <em>like</em> to have displayed on the y-axis. Note: this is merely a guide and your results will likely vary."
+    },
+    "tickFormatY": {
+      "type": "function",
+      "default": "function (y) { return y; }",
+      "desc": "Provide alternate formatting for the y-axis tick labels.",
+      "arguments": {
+        "y": "default tick value"
+      }
+    },
+    "dataFormatX": {
+      "type": "function",
+      "default": "function (x) { return x; }",
+      "desc": "A method to pre-format the input data for the x-axis before attempting to compute a scale or draw.",
+      "arguments": {
+        "x": "datum x-value"
+      }
+    },
+    "dataFormatY": {
+      "type": "function",
+      "default": "function (y) { return y; }",
+      "desc": "A method to pre-format the input data for the y-axis before attempting to compute a scale or draw.",
+      "arguments": {
+        "y": "datum y-value"
+      }
+    },
+    "unsupported": {
+      "type": "function",
+      "default": "function (selector) {\n  d3.select(selector).text('SVG is not supported on your browser');\n}",
+      "desc": "A callback method that will be invoked if SVG is not supported in the viewer's browser.",
+      "arguments": {
+        "selector": "the selector used for this xChart's constructor"
+      }
+    },
+    "noDataMainOnly": {
+      "type": "boolean",
+      "default": true,
+      "desc": "TODO: fix and remove this"
+    },
+    "empty": {
+      "type": "function",
+      "default": "function (self, selector, data) {}",
+      "desc": "A callback method invoked when the data set provided was empty and there is nothing to draw.",
+      "arguments": {
+        "self": "the xChart instance",
+        "selector": "the selector used for this xChart's constructor",
+        "data": "the chart's main data array"
+      }
+    },
+    "notempty": {
+      "type": "function",
+      "default": "function (self, selector) {}",
+      "desc": "The opposite of <var>empty</var>. Invoked if the data set provided was not empty.",
+      "arguments": {
+        "self": "the xChart instance",
+        "selector": "the selector used for this xChart's constructor"
+      }
+    },
+    "timing": {
+      "type": "int",
+      "default": 750,
+      "desc": "The amount of time, in milliseconds, to transition during draw/update."
+    },
+    "interpolation": {
+      "type": "string",
+      "default": "monotone",
+      "desc": "Line interpolation to use when drawing lines. See <a target=\"_blank\" href=\"https://github.com/mbostock/d3/wiki/SVG-Shapes#wiki-line_interpolate\">d3.js's line.interpolate</a> for more information."
+    }
+  },
+  "methods": {
+    "setData": {
+      "desc": "Change the data that for this chart and animate from the current display to the new data.",
+      "arguments": {
+        "data": {
+          "type": "object",
+          "desc": "See <a href=\"#data\">Data Format</a> for format and more information."
+        }
+      }
+    },
+    "setType": {
+      "desc": "Change the vis type for this chart and animate the display.",
+      "arguments": {
+        "type": {
+          "type": "string",
+          "options": ["bar", "cumulative", "line", "line-dotted"],
+          "desc": "The <em>vis type</em> to force the main data to display with. If not provided, will use the last set <em>vis type</em>, or the one provided at xChart creation time."
+        }
+      }
+    },
+    "setScale": {
+      "desc": "Update an axis' scale type.",
+      "arguments": {
+        "axis": {
+          "type": "string",
+          "desc": "The axis to change",
+          "options": ["x", "y"]
+        },
+        "type": {
+          "type": "string",
+          "desc": "Scale type to use along the y-axis (vertical).",
+          "options": ["ordinal", "linear", "time", "exponential"]
+        }
+      }
+    }
+  },
+  "dataFormat": {
+    "xScale": {
+      "type": "string",
+      "desc": "Scale type to use along the x-axis (horizontal).",
+      "options": ["ordinal", "linear", "time", "exponential"]
+    },
+    "yScale": {
+      "type": "string",
+      "desc": "Scale type to use along the y-axis (vertical).",
+      "options": ["ordinal", "linear", "time", "exponential"]
+    },
+    "type": {
+      "optional": true,
+      "type": "string",
+      "options": ["bar", "cumulative", "line", "line-dotted"],
+      "desc": "The <em>vis type</em> to force the main data to display with. If not provided, will use the last set <em>vis type</em>, or the one provided at xChart creation time."
+    },
+    "main": {
+      "type": "Array",
+      "desc": "An array of data sets to be drawn.",
+      "inc": "docs/main-data.html"
+    },
+    "comp": {
+      "type": "Array",
+      "desc": "An array of data sets to be used as comparisons to the main data set. This set differs from <var>main</var> in that each set must have its own independent vis type",
+      "optional": true
+    }
+  },
+  "vismethods": {
+    "preUpdateScale": {
+      "optional": true,
+      "desc": "Executed before the scales have been created for the given data sets.",
+      "arguments": {
+        "self": "the xChart instance",
+        "scaleData": "The union of the main and comp data sets",
+        "mainData": "The main data set",
+        "compData": "The comp data set"
+      },
+      "inc": "docs/vis-preupdatescale.html"
+    },
+    "postUpdateScale": {
+      "optional": true,
+      "desc": "Executed after the scales have been created for the given data sets.",
+      "arguments": {
+        "self": "the xChart instance",
+        "scaleData": "The union of the main and comp data sets",
+        "mainData": "The main data set",
+        "compData": "The comp data set"
+      },
+      "inc": "docs/vis-postupdatescale.html"
+    },
+    "enter": {
+      "optional": false,
+      "desc": "As the first draw step, enter is used to create any elements that we need and bind the data information to each element.",
+      "inc": "docs/vis-enter.html",
+      "arguments": {
+        "self": "The xChart instance",
+        "storage": "A persistent object specific to this vis type for you to store data for later retrieval.",
+        "data": "The data that should be used for drawing this vis.",
+        "className": "A set of CSS classNames, dot-separated, that are recommended to be appended to the main element of this vis."
+      }
+    },
+    "update": {
+      "optional": false,
+      "desc": "During update, we loop over every element and transition its appearance, based on any changes that may have been made to our data series.",
+      "inc": "docs/vis-update.html",
+      "arguments": {
+        "self": "The xChart instance",
+        "storage": "A persistent object specific to this vis type for you to store data for later retrieval.",
+        "timing": "Time, in milliseconds, for running transitions."
+      }
+    },
+    "exit": {
+      "optional": false,
+      "desc": "Called as the last step of updating a vis, in this method we hide any visual elements that are no longer being used–elements from a previous data series that no longer exist in the new series.",
+      "inc": "docs/vis-exit.html",
+      "arguments": {
+        "self": "The xChart instance",
+        "storage": "A persistent object specific to this vis type for you to store data for later retrieval.",
+        "timing": "Time, in milliseconds, for running transitions."
+      }
+    },
+    "destroy": {
+      "optional": false,
+      "desc": "In the last step of our vis, we remove all displayed elements. This method is most called when xChart is instructed to change vis-types for the entire chart.",
+      "inc": "docs/vis-destroy.html",
+      "arguments": {
+        "self": "The xChart instance",
+        "storage": "A persistent object specific to this vis type for you to store data for later retrieval.",
+        "timing": "Time, in milliseconds, for running transitions."
+      }
+    }
+  },
+  "pizza": {
+    "xScale": "ordinal",
+    "yScale": "linear",
+    "type": "bar",
+    "main": [
+      {
+        "className": ".pizza",
+        "data": [
+          {
+            "x": "Pepperoni",
+            "y": 12
+          },
+          {
+            "x": "Cheese",
+            "y": 8
+          }
+        ]
+      }
+    ],
+    "comp": [
+      {
+        "className": ".pizza",
+        "type": "line-dotted",
+        "data": [
+          {
+            "x": "Pepperoni",
+            "y": 10
+          },
+          {
+            "x": "Cheese",
+            "y": 4
+          }
+        ]
+      }
+    ]
+  }
+}

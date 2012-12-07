@@ -6,4 +6,4 @@ tmp/*
 build/*
 xcharts-build.tar.gz
 tmp_build/*
-views/*
+docs/css/*

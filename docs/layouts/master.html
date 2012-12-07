@@ -1,0 +1,66 @@
+{% extends "layouts/html5.html" %}
+{% if DEV %}
+  {% set baseurl = '' %}
+{% else %}
+  {% set baseurl = '/xcharts' %}
+{% endif %}
+{% block title %}xCharts{% endblock %}
+
+{% block css %}
+{% if DEV %}
+  {% set css = 'less' %}
+{% else %}
+  {% set css = 'css' %}
+{% endif %}
+<link rel="stylesheet{% if DEV %}/less{% endif %}" href="{{ baseurl }}/{{ css }}/master.{{ css }}">
+
+{% if DEV %}
+<script src="/js/less.min.js"></script>
+{% endif %}
+{% endblock %}
+
+
+{% block head_js %}
+<script src="{{ baseurl }}/js/d3.v2.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="{{ baseurl }}/js/xcharts.min.js"></script>
+<script src="{{ baseurl }}/js/rainbow.min.js"></script>
+{% endblock %}
+
+{% block body %}
+
+{% block header %}
+<header class="mainHeader">
+  <hgroup class="logo">
+    <h1 class="xChartLogo"><a href="{{ baseurl }}/">xCharts</a></h1>
+    <h2 class="tenxerLogo"><a href="https://www.tenxer.com"><img src="{{ baseurl }}/images/logo.png" alt="Open Source Charts by tenXer"></a></h2>
+    <h3>a D3-based library for building custom charts and graphs</h3>
+  </hgroup>
+
+  <nav>
+    <ul>
+      <li{% if current_page == 'index' %} class="current"{% endif %}>
+        <a href="{{ baseurl }}/">download</a>
+      </li>
+      <li{% if current_page == 'examples' %} class="current"{% endif %}>
+        <a href="{{ baseurl }}/examples/">examples</a>
+      </li>
+      <li{% if current_page == 'docs' %} class="current"{% endif %}>
+        <a href="{{ baseurl }}/docs/">documentation</a>
+      </li>
+      <li><a target="_blank" href="https://github.com/tenXer/xcharts/">source</a></li>
+    </ul>
+  </nav>
+</header>
+{% endblock %}
+
+{% block page_content %}
+{% endblock %}
+
+{% block footer %}
+<footer>
+  <p>Copyright &copy;2012 <a href="https://www.tenxer.com">tenXer, Inc.</a></p>
+</footer>
+{% endblock %}
+
+{% endblock %}

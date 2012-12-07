@@ -1,0 +1,157 @@
+{
+  "examples": [
+    {
+      "title": "Your Basic Bar Chart",
+      "desc": "",
+      "type": "bar",
+      "data": {
+        "xScale": "ordinal",
+        "yScale": "linear",
+        "main": [
+          {
+            "className": ".pizza",
+            "data": [
+              {
+                "x": "Pepperoni",
+                "y": 4
+              },
+              {
+                "x": "Cheese",
+                "y": 8
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "Multi-Series Bar Chart",
+      "desc": "",
+      "type": "bar",
+      "data": {
+        "xScale": "ordinal",
+        "yScale": "linear",
+        "main": [
+          {
+            "className": ".pizza",
+            "data": [
+              {
+                "x": "Pepperoni",
+                "y": 4
+              },
+              {
+                "x": "Cheese",
+                "y": 8
+              }
+            ]
+          },
+          {
+            "className": ".pizza",
+            "data": [
+              {
+                "x": "Pepperoni",
+                "y": 6
+              },
+              {
+                "x": "Cheese",
+                "y": 5
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "title": "Time-Series Line",
+      "desc": "",
+      "type": "line",
+      "data": {
+        "xScale": "time",
+        "yScale": "linear",
+        "type": "line",
+        "main": [
+          {
+            "className": ".pizza",
+            "data": [
+              {
+                "x": "2012-11-05",
+                "y": 1
+              },
+              {
+                "x": "2012-11-06",
+                "y": 6
+              },
+              {
+                "x": "2012-11-07",
+                "y": 13
+              },
+              {
+                "x": "2012-11-08",
+                "y": -3
+              },
+              {
+                "x": "2012-11-09",
+                "y": -4
+              },
+              {
+                "x": "2012-11-10",
+                "y": 9
+              },
+              {
+                "x": "2012-11-11",
+                "y": 6
+              }
+            ]
+          }
+        ]
+      },
+      "opts": "{\n  \"dataFormatX\": function (x) { return d3.time.format('%Y-%m-%d').parse(x); },\n  \"tickFormatX\": function (x) { return d3.time.format('%A')(x); }\n}"
+    },
+    {
+      "title": "Interacting With Points",
+      "desc": "Mouse over the points on the chart to see tooltips.",
+      "type": "line-dotted",
+      "data": {
+        "xScale": "time",
+        "yScale": "linear",
+        "main": [
+          {
+            "className": ".pizza",
+            "data": [
+              {
+                "x": "2012-11-05",
+                "y": 6
+              },
+              {
+                "x": "2012-11-06",
+                "y": 6
+              },
+              {
+                "x": "2012-11-07",
+                "y": 8
+              },
+              {
+                "x": "2012-11-08",
+                "y": 3
+              },
+              {
+                "x": "2012-11-09",
+                "y": 4
+              },
+              {
+                "x": "2012-11-10",
+                "y": 9
+              },
+              {
+                "x": "2012-11-11",
+                "y": 6
+              }
+            ]
+          }
+        ]
+      },
+      "scriptStart": "var tt = document.createElement('div'),\n  leftOffset = -(~~$('html').css('padding-left').replace('px', '') + ~~$('body').css('margin-left').replace('px', '')),\n  topOffset = -32;\ntt.className = 'ex-tooltip';\ndocument.body.appendChild(tt);\n",
+      "opts": "{\n  \"dataFormatX\": function (x) { return d3.time.format('%Y-%m-%d').parse(x); },\n  \"tickFormatX\": function (x) { return d3.time.format('%A')(x); },\n  \"mouseover\": function (d, i) {\n    var pos = $(this).offset();\n    $(tt).text(d3.time.format('%A')(d.x) + ': ' + d.y)\n      .css({top: topOffset + pos.top, left: pos.left + leftOffset})\n      .show();\n  },\n  \"mouseout\": function (x) {\n    $(tt).hide();\n  }\n}"
+    }
+  ]
+}

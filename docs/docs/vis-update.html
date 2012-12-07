@@ -1,0 +1,12 @@
+<p>Using our previous example from <a href="#vis-enter"><code>enter</code></a>, we'll continue with updating our lines:</p>
+
+<pre><code data-language="javascript"> function update(self, storage, timing) {
+  // Update each line
+  storage.linePaths.transition().duration(timing)
+    .style('opacity', 1)
+    .attr('d', storage.line
+      .x(function (d) { return self.xScale(new Date(d.x)); })
+      .y(function (d) { return self.yScale(d.y); })
+    );
+}
+</code></pre>
