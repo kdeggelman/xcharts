@@ -103,3 +103,20 @@ hr {
   :first-child { margin-top: 0; }
   :last-child { margin-bottom: 0; }
 }
+
+.steps {
+  counter-reset: steps;
+  padding-left: @halfGutter;
+  h1,
+  h2,
+  h3 {
+    counter-increment: steps;
+    position: relative;
+    &:before {
+      content: counter(steps) ". ";
+      display: block;
+      position: absolute;
+      left: -@halfGutter;
+    }
+  }
+}

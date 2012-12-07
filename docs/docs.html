@@ -13,21 +13,31 @@
     <article id="quickstart" class="doc">
       <h1>Quick Start</h1>
 
-      <ol>
-        <li>Download and include <a target="_blank" href="http://d3js.org">D3.js</a> on your page.</li>
-        <li><a href="{{ baseurl }}/xcharts-build.tar.gz">Download</a> and include <code>xcharts.js</code> and <code>xcharts.css</code> on your page.</li>
-        <li>Configure your data using xChart's <a href="#data">Data Format</a>.</li>
-        <li>
-          Add an element to your page to display your chart:
-          <pre><code data-language="html">&lt;figure id="myChart"&gt;&lt;/figure&gt;</code></pre>
-        </li>
-        <li>
-          Create your chart:
-          <pre><code data-language="javascript">var myChart = new xChart('bar', data, '#myChart');</code></pre>
-        </li>
-      </ol>
+      <div class="steps">
+        <h2>Download D3.js</h2>
 
+        <p>Download and include <a target="_blank" href="http://d3js.org">D3.js</a> on your page.</p>
 
+        <h2>Download xCharts</h2>
+
+        <p><a href="{{ baseurl }}/xcharts-build.tar.gz">Download</a> and include <code>xcharts.js</code> and <code>xcharts.css</code> on your page.</p>
+
+        <h2>Configure Your Data</h2>
+
+        <p>Configure your data using xChart's <a href="#data">Data Format</a>.</p>
+
+        <h2>Set Up Your Page</h2>
+
+        <p>Add an element with a defined <code>width</code> and <code>height</code> to your page to display your chart:</p>
+
+        <pre><code data-language="html">&lt;figure style="width: 400px; height: 300px;" id="myChart"&gt;&lt;/figure&gt;</code></pre>
+
+        <p class="note">xCharts will fit to the given element's width and height. It's important to have these values set on the element or in a stylesheet. On window resize, if the element resizes, xCharts will resize accordingly, so that it can continue to fit in the allotted space.</p>
+
+        <h2>Create Your Chart</h2>
+
+        <pre><code data-language="javascript">var myChart = new xChart('bar', data, '#myChart');</code></pre>
+      </div>
     </article>
 
     <article id="data" class="doc clearfix">
