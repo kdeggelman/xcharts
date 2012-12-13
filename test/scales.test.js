@@ -54,6 +54,12 @@
       s = scales.linear([100, 100], [0, 100], 'y');
       expect(s.domain()).to.be.eql([88, 112], 'uses scaled padding');
     });
+
+    it('does not round values', function () {
+      var s = scales.linear([1.1, 2.1], [0, 100], 'x');
+      expect(s(1.4)).to.not.equal(s(1.1));
+      expect(s(1.9)).to.not.equal(s(2.1));
+    });
   });
 
   describe('Exponential', function () {

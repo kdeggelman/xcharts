@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
   <style>
   #scratch {
-    position: absolute;
-    left: -999em;
+    position: fixed;
+    visibility: hidden;
   }
   .tooltip { display: none; }
   </style>
@@ -24,7 +24,6 @@
   </script>
 
   <script src="../node_modules/d3/d3.v2.min.js"></script>
-  <script src="../node_modules/lodash/lodash.underscore.min.js"></script>
   <script src="../build/xcharts.js"></script>
   <script src="chart.test.js"></script>
   <script src="scales.test.js"></script>

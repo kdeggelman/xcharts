@@ -56,6 +56,38 @@
       expect(chart.yZero).to.be(45);
       expect(line.attr('d')).to.be('M20,60L20,15');
     });
+
+    it('does not round x-values', function () {
+      var data = {
+          main: [{
+            label: 'Foobar',
+            data: [
+              { x: 1, y: 1 },
+              { x: 1.2, y: -1 },
+              { x: 1.6, y: -1 },
+              { x: 2.1, y: 2 }
+            ],
+            className: 'foo_line'
+          }],
+          xScale: 'linear',
+          yScale: 'linear'
+        },
+        first,
+        second,
+        third,
+        fourth;
+
+      $(container).width(400);
+      chart = new xChart('line-dotted', data, container);
+
+      first = $('circle:eq(0)')[0].getBoundingClientRect();
+      second = $('circle:eq(1)')[0].getBoundingClientRect();
+      third = $('circle:eq(2)')[0].getBoundingClientRect();
+      fourth = $('circle:eq(3)')[0].getBoundingClientRect();
+
+      expect(first.left).to.not.equal(second.left);
+      expect(third.left).to.not.equal(fourth.left);
+    });
   });
 
   describe('update()', function () {
