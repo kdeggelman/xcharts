@@ -1,7 +1,8 @@
 SHA := $(shell git rev-parse HEAD)
 THIS_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
+VERSION := $(shell npm ls | grep "xcharts@" |  grep -Eo "[0-9]*\.[0-9]*\.[0-9]*")
 NODE_PATH = node_modules/.bin
-JS_COMPILER = $(NODE_PATH)/uglifyjs
+JS_COMPILER = $(NODE_PATH)/uglifyjs --comments="license"
 JS_BEAUTIFIER = $(NODE_PATH)/uglifyjs -b -i 2 -nm -ns
 CSS_COMPILER = $(NODE_PATH)/lessc --strict-imports
 CSS_MINIFIER = $(CSS_COMPILER) --yui-compress
@@ -17,6 +18,7 @@ all:
 
 pre-build:
 	@mkdir -p build
+	@sed -i.bak 's/v[0-9]*\.[0-9]*\.[0-9]*/v${VERSION}/' scripts/wrap-start.js
 
 build: pre-build \
 	build/xcharts.js \
@@ -26,6 +28,7 @@ build: pre-build \
 	build/LICENSE \
 	build/README.md
 	@tar -czf xcharts-build.tar.gz build/
+	@find ./ -name "*.bak" -delete
 
 .INTERMEDIATE build/xcharts.js: \
 	scripts/wrap-start.js \
@@ -86,7 +89,11 @@ reporter='dot'
 test: build
 	@node_modules/.bin/mocha-phantomjs test/test.html --reporter ${reporter}
 
-docs: clean build
+pre-docs: clean build
+	@sed -i.bak 's/v[0-9]*\.[0-9]*\.[0-9]*/v${VERSION}/' docs.json
+	@rm docs.json.bak
+
+docs: pre-docs
 	@node_modules/.bin/lessc --yui-compress --include-path=docs/less docs/less/master.less docs/css/master.css
 	@node_modules/.bin/still docs -o ${TMP} -i "layouts" -i "json" -i "less" -i "macro"
 	@cp node_modules/d3/d3.v2.min.js ${TMP}/js/d3.v2.min.js
@@ -102,7 +109,7 @@ docs: clean build
 	@git checkout ${THIS_BRANCH}
 
 port = 3000
-test-docs:
+test-docs: pre-docs
 	@node_modules/.bin/still-server docs/ -p ${port} -o
 
 .PHONY: lint test clean docs test-docs
