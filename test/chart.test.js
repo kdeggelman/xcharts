@@ -61,7 +61,11 @@
           tickHintX: 10,
           tickHintY: 10,
           timing: 750,
-          interpolation: 'monotone'
+          interpolation: 'monotone',
+          xMin: null,
+          xMax: null,
+          yMin: null,
+          yMax: null
         });
       });
 
