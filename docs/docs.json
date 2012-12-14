@@ -28,47 +28,67 @@
       "desc": "Callback behavior for a user clicking a data point."
     },
     "axisPaddingTop": {
-      "type": "int",
+      "type": "Number",
       "default": 0,
       "desc": "Amount of space between the top of the chart and the top value on the y-scale."
     },
     "axisPaddingRight": {
-      "type": "int",
+      "type": "Number",
       "default": 0,
       "desc": "Amount of space between the right side of the chart and the highest value on the x-scale."
     },
     "axisPaddingBottom": {
-      "type": "int",
+      "type": "Number",
       "default": 5,
       "desc": "Amount of space between the bottom of the chart and the lowest value on the y-scale."
     },
     "axisPaddingLeft": {
-      "type": "int",
+      "type": "Number",
       "default": 20,
       "desc": "Amount of space between the left side of the chart and the lowest value on the x-scale."
     },
+    "xMin": {
+      "type": "Number",
+      "default": "null",
+      "desc": "Minimum allowed value on the xScale. If <code>null</code>, uses the data's min value, logically padded for aesthetics. Does not affect <code>ordinal</code> scales. May be overrided using the <a href=\"#method-setData\">setData</a> method with the <a href=\"#data-xMin\">xMin</a> data format key."
+    },
+    "xMax": {
+      "type": "Number",
+      "default": "null",
+      "desc": "Maximum allowed value on the xScale. If <code>null</code>, uses the data's max value, logically padded for aesthetics. Does not affect <code>ordinal</code> scales. May be overrided using the <a href=\"#method-setData\">setData</a> method with the <a href=\"#data-xMax\">xMax</a> data format key."
+    },
+    "yMin": {
+      "type": "Number",
+      "default": "null",
+      "desc": "Minimum allowed value on the yScale. If <code>null</code>, uses the data's min value, logically padded for aesthetics. Does not affect <code>ordinal</code> scales. May be overrided using the <a href=\"#method-setData\">setData</a> method with the <a href=\"#data-yMin\">yMin</a> data format key."
+    },
+    "yMax": {
+      "type": "Number",
+      "default": "null",
+      "desc": "Maximum allowed value on the yScale. If <code>null</code>, uses the data's max value, logically padded for aesthetics. Does not affect <code>ordinal</code> scales. May be overrided using the <a href=\"#method-setData\">setData</a> method with the <a href=\"#data-yMax\">yMax</a> data format key."
+    },
     "paddingTop": {
-      "type": "int",
+      "type": "Number",
       "default": 0,
       "desc": "Amount of space from the top edge of the svg element to the beginning of the <var>axisPaddingTop</var>."
     },
     "paddingRight": {
-      "type": "int",
+      "type": "Number",
       "default": 0,
       "desc": "Amount of space from the right edge of the svg element to the beginning of the <var>axisPaddingRight</var>."
     },
     "paddingBottom": {
-      "type": "int",
+      "type": "Number",
       "default": 20,
       "desc": "Allows space for the x-axis scale. Controls the amount of space from the bottom edge of the svg element to the beginning of the <var>axisPaddingBottom</var>."
     },
     "paddingLeft": {
-      "type": "int",
+      "type": "Number",
       "default": 60,
       "desc": "Allows space for the y-axis scale. Amount of space from the left edge of the svg element to the beginning of the <var>axisPaddingLeft</var>."
     },
     "tickHintX": {
-      "type": "int",
+      "type": "Number",
       "default": 10,
       "desc": "The amount of ticks that you would <em>like</em> to have displayed on the x-axis. Note: this is merely a guide and your results will likely vary."
     },
@@ -81,7 +101,7 @@
       }
     },
     "tickHintY": {
-      "type": "int",
+      "type": "Number",
       "default": 10,
       "desc": "The amount of ticks that you would <em>like</em> to have displayed on the y-axis. Note: this is merely a guide and your results will likely vary."
     },
@@ -142,7 +162,7 @@
       }
     },
     "timing": {
-      "type": "int",
+      "type": "Number",
       "default": 750,
       "desc": "The amount of time, in milliseconds, to transition during draw/update."
     },
@@ -198,6 +218,22 @@
       "type": "string",
       "desc": "Scale type to use along the y-axis (vertical).",
       "options": ["ordinal", "linear", "time", "exponential"]
+    },
+    "xMin": {
+      "type": "Number",
+      "desc": "Minimum allowed value on the xScale. If <code>null</code>, uses the data's min value, logically padded for aesthetics. Does not affect <code>ordinal</code> scales."
+    },
+    "xMax": {
+      "type": "Number",
+      "desc": "Maximum allowed value on the xScale. If <code>null</code>, uses the data's max value, logically padded for aesthetics. Does not affect <code>ordinal</code> scales."
+    },
+    "yMin": {
+      "type": "Number",
+      "desc": "Minimum allowed value on the yScale. If <code>null</code>, uses the data's min value, logically padded for aesthetics. Does not affect <code>ordinal</code> scales."
+    },
+    "yMax": {
+      "type": "Number",
+      "desc": "Maximum allowed value on the yScale. If <code>null</code>, uses the data's max value, logically padded for aesthetics. Does not affect <code>ordinal</code> scales."
     },
     "type": {
       "optional": true,
