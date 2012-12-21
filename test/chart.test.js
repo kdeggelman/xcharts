@@ -61,7 +61,11 @@
           tickHintX: 10,
           tickHintY: 10,
           timing: 750,
-          interpolation: 'monotone'
+          interpolation: 'monotone',
+          xMin: null,
+          xMax: null,
+          yMin: null,
+          yMax: null
         });
       });
 
@@ -251,6 +255,18 @@
 
         expect(c._mainData[0].data[0]).to.be.eql({ x: '1taco', y: 10 });
         expect(c._mainData[0].data[1]).to.be.eql({ x: '2taco', y: 20 });
+      });
+
+      it('allows setting x/y Min/Max onto options', function () {
+        var c = new xChart('bar', mData, container),
+          newData = _.extend({}, mData, {
+            xMin: 1,
+            xMax: 10,
+            yMin: 2,
+            yMax: 8
+          });
+        c.setData(newData);
+        expect(c._options.xMin).to.equal(newData.xMin);
       });
     });
 
