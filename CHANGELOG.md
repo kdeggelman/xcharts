@@ -1,4 +1,9 @@
 
+0.1.3 / 2012-12-21
+==================
+
+  * Add options to set min/max values for x and y axes [gh-5], [gh-10]
+
 0.1.2 / 2012-12-13
 ==================
 
