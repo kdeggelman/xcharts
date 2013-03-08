@@ -141,7 +141,7 @@ xChart.setVis('myvis', MyVis);</code></pre>
 
       <pre><code data-language="javascript">var line = xChart.getVis('line');
 var myVis = {
-  enter: function (self, storage, data, className) {
+  enter: function (self, storage, className, data) {
     line.enter.apply(this, arguments);
     // Do your custom actions here
   },
