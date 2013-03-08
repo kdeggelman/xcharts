@@ -282,8 +282,8 @@
       "arguments": {
         "self": "The xChart instance",
         "storage": "A persistent object specific to this vis type for you to store data for later retrieval.",
-        "data": "The data that should be used for drawing this vis.",
         "className": "A set of CSS classNames, dot-separated, that are recommended to be appended to the main element of this vis."
+        "data": "The data that should be used for drawing this vis.",
       }
     },
     "update": {
