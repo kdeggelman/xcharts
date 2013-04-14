@@ -65,7 +65,8 @@
           xMin: null,
           xMax: null,
           yMin: null,
-          yMax: null
+          yMax: null,
+          sortingMethod: c._options.sortingMethod
         });
       });
 
@@ -223,7 +224,7 @@
               ],
               type: 'line',
               className: 'foo_bar'
-            }],
+            }]
           },
           c = new xChart('bar', data, container);
 
@@ -530,6 +531,53 @@
       };
       chart._resize();
       expect(count).to.be(1);
+    });
+  });
+
+  describe('sort data', function () {
+    var data = {
+      main: [{
+        label: 'Foobar',
+        data: [
+          { x: 2, y: 3 },
+          { x: 3, y: 2 },
+          { x: 1, y: 4 },
+          { x: 0, y: 1 },
+        ],
+        className: 'foo_bar'
+      }],
+      xScale: 'ordinal',
+      yScale: 'linear'
+    };
+
+    it('automatic sorting', function () {
+      var chart = new xChart('bar', data, container);
+      expect(chart._mainData[0].data[0]).to.be.eql({x : 0, y : 1});
+      expect(chart._mainData[0].data[1]).to.be.eql({x : 1, y : 4});
+      expect(chart._mainData[0].data[2]).to.be.eql({x : 2, y : 3});
+      expect(chart._mainData[0].data[3]).to.be.eql({x : 3, y : 2});
+    });
+
+    it('no sorting', function () {
+      var chart = new xChart('bar', data, container, {
+        sortingMethod: function (a, b) {}
+      });
+      expect(chart._mainData[0].data[0]).to.be.eql({x : 2, y : 3});
+      expect(chart._mainData[0].data[1]).to.be.eql({x : 3, y : 2});
+      expect(chart._mainData[0].data[2]).to.be.eql({x : 1, y : 4});
+      expect(chart._mainData[0].data[3]).to.be.eql({x : 0, y : 1});
+    });
+
+    it('custom sorting method (reverse)', function () {
+      var chart = new xChart('bar', data, container, {
+        sortingMethod: function (a, b) {
+          return !a.x && b.x ?  0 : a.x < b.x ? 1 : -1;
+        }
+      });
+      expect(chart._mainData[0].data[0]).to.be.eql({x : 3, y : 2});
+      expect(chart._mainData[0].data[1]).to.be.eql({x : 2, y : 3});
+      expect(chart._mainData[0].data[2]).to.be.eql({x : 1, y : 4});
+      expect(chart._mainData[0].data[3]).to.be.eql({x : 0, y : 1});
     });
   });
 }());
