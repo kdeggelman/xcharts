@@ -113,4 +113,7 @@ port = 3000
 test-docs: pre-docs
 	@node_modules/.bin/still-server docs/ -p ${port} -o
 
+publish: all clean build
+	@npm publish
+
 .PHONY: lint test clean docs test-docs

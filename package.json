@@ -5,8 +5,7 @@
   "main": "build/xcharts.js",
   "homepage": "http://tenxer.github.com/xcharts/",
   "scripts": {
-    "test": "make lint && make test",
-    "prepublish": "make && make clean && make build"
+    "test": "make lint && make test"
   },
   "repository": {
     "type": "git",
