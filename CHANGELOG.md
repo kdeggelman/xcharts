@@ -1,3 +1,11 @@
+0.2.0 / 2013-06-28
+==================
+
+  * Fix charts interfereing with each other. [gh-32]
+  * Prevent pointer events on line fills. [gh-31]
+  * Properly test and use D3 v3. [gh-47]
+  * Allow sorting x-axis data with `sortX` option method [gh-46]
+  * Properly allow 0 values for xMax, xMin, yMax, yMin. [gh-33], [gh-5]
 
 0.1.3 / 2012-12-21
 ==================
