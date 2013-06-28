@@ -65,7 +65,12 @@
     @color: (~'@{color@{index}}');
     @lightened: (~'@{lighten@{index}}');
     @fade: (~'@{fade@{index}}');
-    .line { stroke: @color; }
+    .line {
+      stroke: @color;
+      .fill {
+        pointer-events: none;
+      }
+    }
     rect,
     circle { fill: @color; }
     .fill { fill: @fade; }
