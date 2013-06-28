@@ -129,6 +129,15 @@
         "y": "datum y-value"
       }
     },
+    "sortX": {
+      "type": "function",
+      "default": "function (a, b) {\n  return (!a.x && !b.x) ? 0 : (a.x < b.x) ? -1 : 1;\n}",
+      "desc": "Provide a method to custom-sort x-axis data. Must be a valid <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort\">array comparator</a>, returning <samp>-1</samp>, <samp>0</samp>, or <samp>1</samp>.",
+      "arguments": {
+        "a": "datum object",
+        "b": "datum object"
+      }
+    },
     "unsupported": {
       "type": "function",
       "default": "function (selector) {\n  d3.select(selector).text('SVG is not supported on your browser');\n}",
@@ -282,8 +291,8 @@
       "arguments": {
         "self": "The xChart instance",
         "storage": "A persistent object specific to this vis type for you to store data for later retrieval.",
-        "className": "A set of CSS classNames, dot-separated, that are recommended to be appended to the main element of this vis."
-        "data": "The data that should be used for drawing this vis.",
+        "className": "A set of CSS classNames, dot-separated, that are recommended to be appended to the main element of this vis.",
+        "data": "The data that should be used for drawing this vis."
       }
     },
     "update": {
