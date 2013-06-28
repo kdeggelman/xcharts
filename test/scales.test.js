@@ -101,7 +101,8 @@
         ],
         sOrdinal,
         sLinear,
-        sTime;
+        sTime,
+        zeroMins;
 
       sOrdinal = scales.xy(foo, data, 'ordinal', 'ordinal');
       expect(sOrdinal.x.domain()).to.eql([1, 2]);
@@ -110,6 +111,22 @@
       sLinear = scales.xy(foo, data, 'linear', 'linear');
       expect(sLinear.x.domain()).to.eql([foo._options.xMin, foo._options.xMax]);
       expect(sLinear.y.domain()).to.eql([foo._options.yMin, foo._options.yMax]);
+
+      zeroMins = {
+        _options: {
+          xMin: 0,
+          xMax: 20,
+          yMin: 0,
+          yMax: 40
+        },
+        _width: 100,
+        _height: 100
+      };
+      sLinear = scales.xy(zeroMins, data, 'linear', 'linear');
+      expect(sLinear.x.domain()).to.eql([zeroMins._options.xMin,
+        zeroMins._options.xMax]);
+      expect(sLinear.y.domain()).to.eql([zeroMins._options.yMin,
+        zeroMins._options.yMax]);
 
       foo._options = {
         xMin: new Date(2012, 1, 1),

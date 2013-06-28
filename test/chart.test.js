@@ -265,9 +265,19 @@
             xMax: 10,
             yMin: 2,
             yMax: 8
-          });
+          }),
+          d;
         c.setData(newData);
         expect(c._options.xMin).to.equal(newData.xMin);
+
+        c = new xChart('bar', mData, container);
+        newData = _.extend(newData, {
+          xMin: 0,
+          yMin: 0,
+        });
+        c.setData(newData);
+        expect(c._options.xMin).to.equal(newData.xMin);
+        expect(c._options.yMin).to.equal(newData.yMin);
       });
     });
 
