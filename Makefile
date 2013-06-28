@@ -87,7 +87,7 @@ lint:
 
 reporter='dot'
 test: build
-	@node_modules/.bin/mocha-phantomjs test/test.html --reporter ${reporter}
+	@${NODE_PATH}/mocha-phantomjs test/test.html --reporter ${reporter}
 
 pre-docs: clean build
 	@sed -i.bak 's/v[0-9]*\.[0-9]*\.[0-9]*/v${VERSION}/' docs.json
