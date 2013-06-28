@@ -97,7 +97,7 @@ docs: pre-docs
 	@mkdir -p docs/css
 	@node_modules/.bin/lessc --yui-compress --include-path=docs/less docs/less/master.less docs/css/master.css
 	@node_modules/.bin/still docs -o ${TMP} -i "layouts" -i "json" -i "less" -i "macro"
-	@cp node_modules/d3/d3.v2.min.js ${TMP}/js/d3.v2.min.js
+	@cp node_modules/d3/d3.min.js ${TMP}/js/d3.min.js
 	@cp build/xcharts*js ${TMP}/js/
 	@git checkout master
 	@cp xcharts-build.tar.gz ${TMP}/xcharts-build.tar.gz
