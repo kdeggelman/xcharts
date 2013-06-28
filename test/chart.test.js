@@ -66,7 +66,7 @@
           xMax: null,
           yMin: null,
           yMax: null,
-          sortingMethod: c._options.sortingMethod
+          sortX: c._options.sortX
         });
       });
 
@@ -560,7 +560,7 @@
 
     it('no sorting', function () {
       var chart = new xChart('bar', data, container, {
-        sortingMethod: function (a, b) {}
+        sortX: function (a, b) {}
       });
       expect(chart._mainData[0].data[0]).to.be.eql({x : 2, y : 3});
       expect(chart._mainData[0].data[1]).to.be.eql({x : 3, y : 2});
@@ -570,7 +570,7 @@
 
     it('custom sorting method (reverse)', function () {
       var chart = new xChart('bar', data, container, {
-        sortingMethod: function (a, b) {
+        sortX: function (a, b) {
           return !a.x && b.x ?  0 : a.x < b.x ? 1 : -1;
         }
       });
